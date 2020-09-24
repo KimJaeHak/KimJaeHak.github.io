@@ -279,7 +279,7 @@ defaults:
       layout: single
       author_profile: true
       read_time: true
-      comments: # true
+      comments: true # true
       share: true
       related: true
       classes: wide
@@ -290,4 +290,5 @@ defaults:
     values:
       layout: single
       author_profile: true
+      comments: true
       
