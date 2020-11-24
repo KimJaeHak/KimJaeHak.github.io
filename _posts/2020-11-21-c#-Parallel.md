@@ -25,14 +25,13 @@ Multi-core 프로세서는 보통 여러개의 Physical Core를 가지고 있다
 **Logical-Core(논리적 코어)**를 **Hardware Thread(하드웨어 쓰레드)** 라고 한다.  
 보통 Intel Hyper-Threading Technology (HT 또는 HTT)가 적용된 마이크로 프로세서는 물리적 코어 보다 많은**Hardware Threads**를 제공 한다.
 
-그렇다면 **Software-thread**란 무엇일까? 그것은 우리가 만든 프로그램이 실행되면서 부터 생성되는 Thread인 것이다.  
-이것은 한개 혹은 여러개가 생성 될 수 있다.
+그렇다면 **Software-thread**란 무엇일까? 그것은 우리가 만든 프로그램이 실행되면서 부터 생성되는 Thread인 것이다. 이것은 한개 혹은 여러개가 생성 될 수 있다.
 
 **\[요약\]**
 
-> **Physical Core(물리적 코어)** : 실제 Cpu에 물리적으로 존재 하는 코어 이다.  
-> **Logical-Core(논리적 코어) 또는 Hardware Thread(하드웨어 쓰레드)** : 물리적 코어의 성능을 높이기 위해 추상화 한 개념의 Core.(Hyper-Threading)  
-> **Software-Thread** : 실행중인 프로그램(Process)에서 생성된 Thread
+> - **Physical Core(물리적 코어)** : 실제 Cpu에 물리적으로 존재 하는 코어 이다.  
+> - **Logical-Core(논리적 코어) 또는 Hardware Thread(하드웨어 쓰레드)** : 물리적 코어의 성능을 높이기 위해 추상화 한 개념의 Core.(Hyper-Threading)  
+> - **Software-Thread** : 실행중인 프로그램(Process)에서 생성된 Thread
 
 실제 프로그램에서 만들어진 Software-Thread가 OS 스케쥴러에 따라 Hardware-Thread에 할당 되어 실행 되는 것이다.  
 아래 그림을 보면 이해가 편할 것이다.
@@ -259,6 +258,19 @@ Thread별 결과를 합산 해서 결과를 도출 한다.
 > 1. Concurrent collection classes  
 > 2. Lightweight synchronization primitives  
 > 3. Types for lazy initialization  
+
+#### Lightweight synchronization primitives : 
+1. **Barrier** : Multiple tasks에 대해서 여러 단계별로 동기화를 시킬 수 있도록 함.
+2. **CountdownEvent** : Fork and Join 시나리오를 단순화 한다. 카운트가 0에 도달하면 신호를 받는<br>
+매우 가벼운 동기화 기본요소
+3. **ManualResetEventSlim** : Thread , Task 가 대기상태가 된다. 다른 Task에 의해서 Event Handle<br>이 Manually Signaled가 될 때까지
+4. **SemaphoreSlim** : 리소스 또는 리소스 풀에 동시에 액세스 할 수있는 작업 수를 제한 할 수 있다. 대기 시간이 매우 짧을 것으로 예상하면 헤비급 Semaphore보다 더 나은 성능을 제공.
+5. **SpinLock** : 
+6. **spinWait**
+
+#### 1. Barrier
+
+
 
 
 
