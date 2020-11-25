@@ -225,7 +225,7 @@ The task running CancelTest1 was cancelled.
 The task running CancelTest2 was cancelled.
 ```
 
-#### Task Chaning Continuation
+#### Task Chaining Continuation
 프로그램 실행시 이전 Task의 실행 결과를 가지고 새로운 Task를 실행 해야 하는 경우가 발생 한다.  
 이 때 **.net TPL** 에서 지원해 주는 기능이 **Task.ContinueWith** 이다.  
 
@@ -266,14 +266,90 @@ Thread별 결과를 합산 해서 결과를 도출 한다.
 이럴경우 우리는 Task 인스턴스에 대한 정보가 필요하지만 CountdownEvent는 개체 참조가 필요하지 않다는 장점이 있다.
 3. **ManualResetEventSlim** : Thread , Task 가 대기상태가 된다. 다른 Task에 의해서 Event Handle<br>이 Manually Signaled가 될 때까지
 4. **SemaphoreSlim** : 리소스 또는 리소스 풀에 동시에 액세스 할 수있는 작업 수를 제한 할 수 있다. 대기 시간이 매우 짧을 것으로 예상하면 헤비급 Semaphore보다 더 나은 성능을 제공.
-5. **SpinLock** : 
-6. **spinWait**
+5. **SpinLock** : 루프에서 대기하는 절차를 Spinning 이라고 한다. 상호배제 잠금(Mutual Excusion Lock)을 획득 할 때 까지<br>
+   반복적으로 확인 하면서 루프에서 대기 하는 방법이며, Structure구조 이기 때문에 성능상 이점도 존재 한다.
+6. **spinWait** : Task에서 지정된 조건이 충족 될 때까지 스핀 기반 대기를 수행 할 수 있다.
 
 #### 1. Barrier
+- 특정 위치에서 모든 Task(thread)가 완료 될 때 까지 대기 하도록 장벽(Barrier)을 세운다.
+- 병렬처리 하는 로직 내부가 여러 Step으로 되어 있고, 이전스텝에서 **모든 결과 데이터**를 다음 스텝에서 사용해야 할 때.
+- Task의 ContinueWhenAll을 사용할 수 있지만, 반복 횟수가 많아 지면 Task생성에 대한 오버헤드가 생긴다.<br>
+  
+>그렇다면 다음 예제를 한번 살펴 보자. 개발자는 코드가 편하니까.<br>
 
+**\[샘플 코드\]**<br>
+```cs
+public class ConcurrentTest
+    {
+        public static void BarriersTest()
+        {
+            var participants = Environment.ProcessorCount;
+            var tasks = new Task[participants];
+            var barriers = new Barrier(participants, barrier => 
+                                       { Console.WriteLine($"Current phase: {barrier.CurrentPhaseNumber}" + Environment.NewLine);});
 
+                for (int i = 0; i < participants; i++)
+                {
+                    tasks[i] = Task.Factory.StartNew((num) =>
+                    {
+                        var participantNumber = (int)num;
+                        for (int j = 0; j < 10; j++)
+                        {
+                            MethodStepOne(participantNumber);
+                            barriers.SignalAndWait();   //All Tasks Wait Step One
+                            MethodStepTwo(participantNumber);
+                            barriers.SignalAndWait();   //All Tasks Wait Step Two
+                            MethodStepThree(participantNumber);
+                            barriers.SignalAndWait();   //All Tasks Wait Step Three
+                            MethodStepFour(participantNumber);
+                            barriers.SignalAndWait();   //All Tasks Wait Step Four
+                            MethodStepFive(participantNumber);
+                            barriers.SignalAndWait();   //All Tasks Wait Step Five
+                        }
+                    }, i);
+                }
 
+                var finalTask = Task.Factory.ContinueWhenAll(tasks, (task) =>
+                {
+                    // Wait for all the tasks to ensure
+                    // the propagation of any exception occurred
+                    // in any of the tasks
+                    Task.WaitAll(tasks);
+                    Console.WriteLine("All the phases were executed.");
+                    // Dispose the Barrier instance
+                    barriers.Dispose();
+                });
+                // Wait for finalTask to finish
+                finalTask.Wait();
+                Console.ReadLine();
+        }
 
+        private static void MethodStepOne(int participantNumber)
+        {
+            Console.WriteLine($"MethodStepOne # {participantNumber}");
+        }
 
+        private static void MethodStepTwo(int participantNumber)
+        {
+            Console.WriteLine($"MethodStepTwo # {participantNumber}");
+        }
 
+        private static void MethodStepThree(int participantNumber)
+        {
+            Console.WriteLine($"MethodStepThree # {participantNumber}");
+        }
 
+        private static void MethodStepFour(int participantNumber)
+        {
+            Console.WriteLine($"MethodStepFour # {participantNumber}");
+        }
+
+        private static void MethodStepFive(int participantNumber)
+        {
+            Console.WriteLine($"MethodStepFive # {participantNumber}");
+        }
+    }
+```
+
+**\[실행 결과\]**<br>
+[![](/assets/images/parallel/barrier_result.png)](/assets/images/parallel/barrier_result.png)
