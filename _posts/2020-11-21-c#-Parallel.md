@@ -262,7 +262,8 @@ Thread별 결과를 합산 해서 결과를 도출 한다.
 #### Lightweight synchronization primitives : 
 1. **Barrier** : Multiple tasks에 대해서 여러 단계별로 동기화를 시킬 수 있도록 함.
 2. **CountdownEvent** : Fork and Join 시나리오를 단순화 한다. 카운트가 0에 도달하면 신호를 받는<br>
-매우 가벼운 동기화 기본요소
+매우 가벼운 동기화 기본요소 물론 Parallel.Invoke나 Continuations등 으로 Fork/Join의 더 쉬운 접근 방법을 제공한다.<br>
+이럴경우 우리는 Task 인스턴스에 대한 정보가 필요하지만 CountdownEvent는 개체 참조가 필요하지 않다는 장점이 있다.
 3. **ManualResetEventSlim** : Thread , Task 가 대기상태가 된다. 다른 Task에 의해서 Event Handle<br>이 Manually Signaled가 될 때까지
 4. **SemaphoreSlim** : 리소스 또는 리소스 풀에 동시에 액세스 할 수있는 작업 수를 제한 할 수 있다. 대기 시간이 매우 짧을 것으로 예상하면 헤비급 Semaphore보다 더 나은 성능을 제공.
 5. **SpinLock** : 
