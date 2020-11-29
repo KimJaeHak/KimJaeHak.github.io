@@ -352,4 +352,8 @@ public class ConcurrentTest
 ```
 
 **\[실행 결과\]**<br>
-[![](/assets/images/parallel/barrier_result.png)](/assets/images/parallel/barrier_result.png)
+[![](/assets/images/parallel/barrier_result.png)](/assets/images/parallel/barrier_result.png)<br>
+
+> Loop 안에서 여러단계를 실행해야 하는경우 Barrier는 활용도가 높은 동기화 기술 이다.
+
+#### 1. 
