@@ -356,4 +356,46 @@ public class ConcurrentTest
 
 > Loop 안에서 여러단계를 실행해야 하는경우 Barrier는 활용도가 높은 동기화 기술 이다.
 
-#### 1. 
+### 상호 재베 잠금(Mutual-Exclusion Locks)
+#### Monitor
+
+```cs
+Monitor.Enter(sb);
+try
+{
+    // Monitor acquired a lock on sb
+    // Critical section
+    sb.Append(logLine);
+    // End of critical section
+}
+finally
+{
+    // You need to make sure that
+    // you release the lock on sb
+    Monitor.Exit(sb);
+}
+```
+
+.net 4.0 에서는 Enter를 Lock을 얻었을 경우 True값을 셋 해주는 함수로 오버로딩 했다.
+
+```cs
+bool lockTaken = false;
+try
+{
+    Monitor.Enter(sb, ref lockTaken);
+    // Monitor acquired a lock on sb
+    // Critical section
+    sb.Append(logLine);
+    // End of critical section
+}
+finally
+{
+    // You need to make sure that
+    // you release the lock on sb
+    if (lockTaken)
+    {
+        // Gives up the lock if it actually acquired it
+        Monitor.Exit(sb);
+    }
+}
+```
