@@ -19,11 +19,12 @@ F4:: ; 줄바꾸기 삭제
 Send, ^c
 Sleep 50
 
-
 Clipboard := StrReplace(Clipboard, "`r`n", A_Space)
 Clipboard := StrReplace(Clipboard, "-", A_Space)
 Clipboard := StrReplace(Clipboard, "&", UriEncode("&"))
 run,microsoft-edge:https://translate.google.com/?sl=en&tl=ko&text=%Clipboard%&op=translate
+;run,microsoft-edge:https://translate.google.com/#view=home&op=translate&sl=en&tl=ko&text=%Clipboard%&op=translate
+
 }
 Return
 
