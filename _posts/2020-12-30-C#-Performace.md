@@ -11,7 +11,7 @@ tags:
 
 ## - Type Internals (value Type 과 Reference Type)
 
- ### **Memory 관점**
+ ### **Memory 관점**  
 아래의 2가지 Type을 한번 살펴 봅니다. 제공하는 데이터는 동일 합니다.<br>
 이제 1000만 Point2D를 배열의 메모리에 저장 한다고 가정 하면 얼마나 많은 공간이 필요 할까요?
 Value Type 인지 Reference Type 인지에 따라서 크게 달라 집니다.
@@ -98,7 +98,7 @@ CPU Cache에 들어 갈 수 있으므로 일반적인 Stack 개체의 Access가 
 
 ![이미지](/assets/images/csharp/boxing_valuetype.png)
 
-> 다음 코드를 봅니다.
+> 다음 코드를 봅니다.  
 ```cs
 List<Point2D> polygon = new List<Point2D>();
 //1000만개의 Point2D가 삽입 되었다고 가정 합니다.
