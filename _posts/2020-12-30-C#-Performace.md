@@ -169,7 +169,8 @@ public struct Point2D
 List<T>는 Generic을 사용하고 있습니다. 이 경우 여전히 Equals를 호출 할때 Boxing이 발생합니다.  
 Generic객체는 Equals를 호출 할 때 Parameter로 T를 사용하기 때문입니다.
 
-> 아래는 최종 완성 코드 입니다. 달라진 점은 IEquatable<T>를 상속했을 뿐입니다.
+> 아래는 최종 완성 코드 입니다. 달라진 점은 IEquatable<T>를 상속했을 뿐입니다.  
+
 ```cs
 //IEquatable<Point2D> 상속받아 구현함.
 public struct Point2D : IEquatable<Point2D>
