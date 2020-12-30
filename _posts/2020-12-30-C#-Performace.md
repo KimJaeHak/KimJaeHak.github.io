@@ -23,7 +23,7 @@ Value Type 인지 Reference Type 인지에 따라서 크게 달라 집니다.
 
 > 이것은 우리가 특정 상황에서 Value Type을 사용을 고려해야 하는 이유 입니다.
 
-```c#
+```cs
 //short is 16bit(2Byte)
 class Point2D
 {
@@ -65,7 +65,7 @@ nor slower than accessing a memory location on the stack.
 생각해보면 사실 우리가 흔히 알고 있는 GC(Garbage Collector)에서 주소를 할당 하는 방법은   
 단지 Pointer를 증가 시키는 간단한 동작 이기에 별반 차이가 없을것도 같습니다.
 
-<span style="color:lightblue"> **그럼 Heap 과 Stack은 성능 차이가 전혀 없나요?** </span>  
+<span style="color:blue"> **그럼 Heap 과 Stack은 성능 차이가 전혀 없나요?** </span>  
 <span style="color:red">아니요, 차이가 있습니다. ^^;</span>
 
 다음과 같은 이유로 Stack의 성능상 이점이 있다는 주장을 뒷받침 합니다.
@@ -99,7 +99,7 @@ CPU Cache에 들어 갈 수 있으므로 일반적인 Stack 개체의 Access가 
 ![이미지](/assets/images/csharp/boxing_valuetype.png)
 
 > 다음 코드를 봅니다.
-```c#
+```cs
 List<Point2D> polygon = new List<Point2D>();
 //1000만개의 Point2D가 삽입 되었다고 가정 합니다.
 Point2D point = new Point2D { X = 5, Y = 7 };
@@ -115,7 +115,7 @@ bool contains = polygon.Contains(point);
 ## Avoid Boxing(Equals Method)
 Equals의 Boxing을 피하기 위해서는 Equals를 Type에 맞게 재정의 해주는 것입니다.
 
-```C#
+```cs
 public struct Point2D
 {
     public int X;
@@ -137,7 +137,7 @@ public struct Point2D
 또 우리는 `!= 또는 ==` 을 통해서 비교하기도 합니다.  
 >아래의 코드가 좀 더 완벽해 보입니다. **하지만 완벽 할까요?**
 
-```C#
+```cs
 
 public struct Point2D
 {
@@ -170,7 +170,7 @@ List<T>는 Generic을 사용하고 있습니다. 이 경우 여전히 Equals를 
 Generic객체는 Equals를 호출 할 때 Parameter로 T를 사용하기 때문입니다.
 
 > 아래는 최종 완성 코드 입니다. 달라진 점은 IEquatable<T>를 상속했을 뿐입니다.
-``` C#
+```cs
 //IEquatable<Point2D> 상속받아 구현함.
 public struct Point2D : IEquatable<Point2D>
 {
