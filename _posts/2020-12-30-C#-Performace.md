@@ -99,6 +99,7 @@ CPU Cache에 들어 갈 수 있으므로 일반적인 Stack 개체의 Access가 
 ![이미지](/assets/images/csharp/boxing_valuetype.png)
 
 > 다음 코드를 봅니다.  
+
 ```cs
 List<Point2D> polygon = new List<Point2D>();
 //1000만개의 Point2D가 삽입 되었다고 가정 합니다.
