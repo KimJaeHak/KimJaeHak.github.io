@@ -11,7 +11,7 @@ tags:
 
 ## - Type Internals (value Type 과 Reference Type)
 
- ### **Memory 관점**  
+### **Memory 관점**  
 아래의 2가지 Type을 한번 살펴 봅니다. 제공하는 데이터는 동일 합니다.<br>
 이제 1000만 Point2D를 배열의 메모리에 저장 한다고 가정 하면 얼마나 많은 공간이 필요 할까요?
 Value Type 인지 Reference Type 인지에 따라서 크게 달라 집니다.
