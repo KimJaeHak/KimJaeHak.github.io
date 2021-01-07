@@ -1,10 +1,10 @@
 ---
 title: "Mark Down 문법 정리"
 categories:
- - markdown
+ - Markdown
 tags:
- - markdown
- - markdown sytax
+ - Markdown
+ - Markdown sytax
 ---
 
 ## 헷갈리는 문법 정리
