@@ -36,6 +36,7 @@ tags:
  조각화된 메모리를 압축하는 단계 입니다.
 
 > Sweep And Compact Result
+
 ![이미지](/assets/images/csharp/sweep_compact.png)
 
 ## Garbage Collection Mode
