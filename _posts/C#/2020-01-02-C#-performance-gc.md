@@ -65,16 +65,16 @@ tags:
 - **GC Trigger by Ui-Thread (Bad)**
 ![이미지](/assets/images/csharp/concurrency_work_uithread.png)
   - Ui Thread가 blocked 되어 멈춥니다.
-  - GC-thread 와 Work-thread가 경합하며 진행 됩니다.
+  - GC-thread 와 Work(other)-thread가 경합하며 진행 됩니다.
   - 경합 과정에서 메모리 해제가 늦어지고, 이는 Ui-thread의 대기상태가 길어짐을 의미합니다.
   - 결국 ui에 응답성이 떨어집니다.
   
 ----
 - **GC Trigger by Work-Thread (Good)**
 ![이미지](/assets/images/csharp/corrency_work_workthread.png)
-  - work-thread 가 Blocked 되어 멈춥니다.
+  - work(other)-thread 가 Blocked 되어 멈춥니다.
   - ui-thread 와 GC-thread가 경합하며 진행 됩니다.
-  - ui-thread는 이상적인 상황이라면 적절히 자원이 할당되어 응답성을 높일 것입니다.
+  - ui-thread는 이상적인 상황이라면 적절히 자원이 할당되어 **응답성을 높일 것입니다.**
 
 
 > 위 내용을 기반으로 아래와 같은 결론을 얻을 수 있습니다.
@@ -88,12 +88,13 @@ tags:
   - Mark Phase 와 Sweep Phase 모두, Application Thread를 일시 중단합니다.
   - GC Thread가 따로 존재 하지 않습니다.
   - GC Trigger한 Thread가 직접 Collection을 수행 합니다.
-  - Ui-thread에서 GC Trigger되면 Work-Threads와 경쟁하지 않고, **Waiting** 상태에서 더 빨리 해제됩니다.
+  - Ui-thread에서 GC Trigger되면 Work-Threads와 경쟁하지 않고, **Waiting** 상태에서 더 빨리 해제됩니다.**(응답성↓)**
 
 ## [Server GC]
 - 별도의 GC-Thread가 존재 합니다. 
-- 높은 처리 속도 및 확장성이 필요한 서버 애플리케이션을 위한 서버 가비지 수집.
-- Process 별로 Managed Heap이 별로도 할당 되어 있습니다.
-- 분리된 Managed Heap은 경합을 최소화 하여, 병렬 할당을 수행할 수 있도록 합니다.
+- 높은 처리 속도 및 확장성이 필요한 서버 어플리케이션에 사용합니다.
+- 분리된 Managed Heap은 경합을 최소화 합니다.
+- 병렬할당 및 병렬해제를 수행할 수 있도록 합니다.
+- **마지막에 Collection을 마친 GC-Thread를 기준으로, Applicaton Thread가 기동합니다.**
   
 ![이미지](/assets/images/csharp/gc-server.png)
