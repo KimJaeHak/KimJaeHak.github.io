@@ -98,3 +98,49 @@ tags:
 - **마지막에 Collection을 마친 GC-Thread를 기준으로, Applicaton Thread가 기동합니다.**
   
 ![이미지](/assets/images/csharp/gc-server.png)
+
+## Backgound GC 등장
+
+- Workstation GC(.net 4.0 이상)
+- Server GC(.net 4.5 이상)
+- 2세대 수집과 0, 1세대 수집을 분리하여 Application의 응답성을 높임.
+- Background GC 설명 [[Link]](https://docs.microsoft.com/ko-kr/dotnet/standard/garbage-collection/background-gc)
+
+## GC Configuration
+- GC Mode를 설정 하는 방법은 .net 버전과 환경에 따라 여러가지가 있을수 있습니다.
+- 제가 설정한 방법은 아래와 같습니다.
+- 응용 프로그램을 만들면 App.config파일이 생성 됩니다.
+- ![이미지](/assets/images/csharp/gc-config.png)
+- 아래와 같이 설정 하면 ServerMode로 동작 하게 됩니다.
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <runtime>
+    <gcServer enabled="true" />
+  </runtime>
+</configuration>
+```
+
+## Summary
+- .net Garbage Collection에 대해 간략하게 정리해 보았습니다.
+- 대용량 처리의 성능을 개선을 위한 GC Server Mode를 설명 했습니다.
+- 실제 GC Mode 설정방법을 설명했습니다.
+- GC에 대한 설명이 잘되어있는 **아래 사이트**도 한번 방문해 보세요.
+  
+닷넷 가비지 컬렉션 다시 보기 - Part I 기본 작동 방식  
+ http://www.simpleisbest.net/post/2011/04/01/Review-NET-Garbage-Collection.aspx
+
+닷넷 가비지 컬렉션 다시 보기–Part II 세대별 가비지 콜렉션  
+ http://www.simpleisbest.net/post/2011/04/05/Generational-Garbage-Collection.aspx
+
+닷넷 가비지 컬렉션 다시 보기 - Part III LOH  
+ http://www.simpleisbest.net/post/2011/04/11/Large-Object-Heap-Intro.aspx
+
+닷넷 가비지 컬렉션 다시 보기 - Part IV 가비지 컬렉션 발생 시기  
+ http://www.simpleisbest.net/post/2011/04/18/When-GC-Occurs.aspx
+
+닷넷 가비지 컬렉션 다시 보기 - Part V 가비지 컬렉션 모드  
+ http://www.simpleisbest.net/post/2011/04/25/Garbage-Collection-Modes.aspx
+
+닷넷 가비지 컬렉션 다시 보기 - Part VI 가비지 컬렉션 모드 활용  
+ http://www.simpleisbest.net/post/2011/04/27/Using-Garbage-Collection-Modes.aspx
