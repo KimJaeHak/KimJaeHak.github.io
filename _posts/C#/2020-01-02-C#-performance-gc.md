@@ -112,6 +112,7 @@ tags:
 - 응용 프로그램을 만들면 App.config파일이 생성 됩니다.
 - ![이미지](/assets/images/csharp/gc-config.png)
 - 아래와 같이 설정 하면 ServerMode로 동작 하게 됩니다.
+  
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <configuration>
