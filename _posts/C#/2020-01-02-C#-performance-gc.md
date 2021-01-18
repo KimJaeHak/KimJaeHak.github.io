@@ -123,7 +123,7 @@ tags:
 
 ## Summary
 - .net Garbage Collection에 대해 간략하게 정리해 보았습니다.
-- 대용량 처리의 성능을 개선을 위한 GC Server Mode를 설명 했습니다.
+- 대용량 처리의 성능을 개선을 위한 **GC Server Mode**를 설명 했습니다.
 - 실제 GC Mode 설정방법을 설명했습니다.
 - GC에 대한 설명이 잘되어있는 **아래 사이트**도 한번 방문해 보세요.
   
