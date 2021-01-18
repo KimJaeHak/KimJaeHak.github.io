@@ -6,6 +6,9 @@ tags:
  - C#
  - C# Performace
  - Garbage Collection
+  
+toc: true
+toc_sticky: true
 ---
 
 # Garbage Collection(GC)
@@ -104,7 +107,7 @@ tags:
 - Workstation GC(.net 4.0 이상)
 - Server GC(.net 4.5 이상)
 - 2세대 수집과 0, 1세대 수집을 분리하여 Application의 응답성을 높임.
-- Background GC 설명 [[Link]](https://docs.microsoft.com/ko-kr/dotnet/standard/garbage-collection/background-gc)
+- Background GC 설명 [[Link]](https://docs.microsoft.com/ko-kr/dotnet/standard/garbage-collection/background-gc){:target="_blank"}
 
 ## GC Configuration
 - GC Mode를 설정 하는 방법은 .net 버전과 환경에 따라 여러가지가 있을수 있습니다.
@@ -128,20 +131,14 @@ tags:
 - 실제 GC Mode 설정방법을 설명했습니다.
 - GC에 대한 설명이 잘되어있는 **아래 사이트**도 한번 방문해 보세요.
   
-닷넷 가비지 컬렉션 다시 보기 - Part I 기본 작동 방식  
- http://www.simpleisbest.net/post/2011/04/01/Review-NET-Garbage-Collection.aspx
+[닷넷 가비지 컬렉션 다시 보기 - Part I 기본 작동 방식](http://www.simpleisbest.net/post/2011/04/01/Review-NET-Garbage-Collection.aspx){:target="_blank"}
 
-닷넷 가비지 컬렉션 다시 보기–Part II 세대별 가비지 콜렉션  
- http://www.simpleisbest.net/post/2011/04/05/Generational-Garbage-Collection.aspx
+[닷넷 가비지 컬렉션 다시 보기–Part II 세대별 가비지 콜렉션](http://www.simpleisbest.net/post/2011/04/05/Generational-Garbage-Collection.aspx){:target="_blank"}
 
-닷넷 가비지 컬렉션 다시 보기 - Part III LOH  
- http://www.simpleisbest.net/post/2011/04/11/Large-Object-Heap-Intro.aspx
+[닷넷 가비지 컬렉션 다시 보기 - Part III LOH](http://www.simpleisbest.net/post/2011/04/11/Large-Object-Heap-Intro.aspx){:target="_blank"}
 
-닷넷 가비지 컬렉션 다시 보기 - Part IV 가비지 컬렉션 발생 시기  
- http://www.simpleisbest.net/post/2011/04/18/When-GC-Occurs.aspx
+[닷넷 가비지 컬렉션 다시 보기 - Part IV 가비지 컬렉션 발생 시기](http://www.simpleisbest.net/post/2011/04/18/When-GC-Occurs.aspx){:target="_blank"}
 
-닷넷 가비지 컬렉션 다시 보기 - Part V 가비지 컬렉션 모드  
- http://www.simpleisbest.net/post/2011/04/25/Garbage-Collection-Modes.aspx
+[닷넷 가비지 컬렉션 다시 보기 - Part V 가비지 컬렉션 모드](http://www.simpleisbest.net/post/2011/04/25/Garbage-Collection-Modes.aspx){:target="_blank"}
 
-닷넷 가비지 컬렉션 다시 보기 - Part VI 가비지 컬렉션 모드 활용  
- http://www.simpleisbest.net/post/2011/04/27/Using-Garbage-Collection-Modes.aspx
+[닷넷 가비지 컬렉션 다시 보기 - Part VI 가비지 컬렉션 모드 활용](http://www.simpleisbest.net/post/2011/04/27/Using-Garbage-Collection-Modes.aspx){:target="_blank"}
