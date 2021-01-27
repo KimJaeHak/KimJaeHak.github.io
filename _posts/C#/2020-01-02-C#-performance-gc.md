@@ -126,10 +126,10 @@ toc_sticky: true
 ```
 
 ## Summary
-- .net Garbage Collection에 대해 간략하게 정리해 보았습니다.
-- 대용량 처리의 성능을 개선을 위한 **GC Server Mode**를 설명 했습니다.
-- 실제 GC Mode 설정방법을 설명했습니다.
-- GC에 대한 설명이 잘되어있는 **아래 사이트**도 한번 방문해 보세요.
+- .net Garbage Collection에 대해 간략하게 정리해보았습니다.
+- 대용량 처리의 성능을 개선을 위한 **GC Server Mode**를 설명했습니다.
+- 실제 GC Mode 설정 방법을 설명했습니다.
+- GC에 대한 설명이 잘 되어있는 **아래 사이트**도 한번 방문해 보세요.
   
 **[관련 링크]** <br>
 [닷넷 가비지 컬렉션 다시 보기 - Part I 기본 작동 방식](http://www.simpleisbest.net/post/2011/04/01/Review-NET-Garbage-Collection.aspx){:target="_blank"}
