@@ -14,7 +14,7 @@ toc_sticky: true
 # Garbage Collection(GC)
 
 ## Garbage Collection이란?
-- 개발자가 메로리의 할당/해제를 관리 할 필요가 없도록 하는 높은 수준의 추상화 입니다.
+- 개발자가 메로리의 할당/해제를 관리할 필요가 없도록 하는 높은 수준의 추상화입니다.
 - 메모리 관리를 하면서 나타나는 버그 및 복잡성을 낮춥니다.
 - Native의 수동 할당 이상의 메모리 관리성능을 제공합니다.
 
@@ -23,7 +23,7 @@ toc_sticky: true
 > - .Net CLR에서 사용되는 GC 메커니즘 입니다.
 > - Reference Counting 기반의 GC를 수행하지 않습니다.
 > - 개발자가 명시적으로 메모리 해제를 수행할 필요가 없으며, 메모리 사용량 임계치에  
-도달하기 전까지 할당 취소비용이 발생하지 않음.
+도달하기 전까지 할당 취소 비용이 발생하지 않음.
 > - **Mark Phase -> Sweep -> Compact** 단계로 수행됨.
 
 ### 1. Mark Phase
@@ -32,7 +32,7 @@ toc_sticky: true
  - Root부터 참조순회를 하며 Alive/Dead Object에 Marking을 합니다.
 
 ### 2. Sweep Phase
- - Mark Phase 단계에서 Dead Object로 표시된 객체의 메모리를 해제 합니다.
+ - Mark Phase 단계에서 Dead Object로 표시된 객체의 메모리를 해제합니다.
 
 ### 3. Compact Phase
  - Sweep 단계에서 해제된 메모리가 곳곳에 구멍처럼 있으며, 이것을 조각화라고 합니다.<br>
@@ -68,7 +68,7 @@ toc_sticky: true
 - **GC Trigger by Ui-Thread (Bad)**
 ![이미지](/assets/images/csharp/concurrency_work_uithread.png)
   - Ui Thread가 blocked 되어 멈춥니다.
-  - GC-thread 와 Work(other)-thread가 경합하며 진행 됩니다.
+  - GC-thread 와 Work(other)-thread가 경합하며 진행됩니다.
   - 경합 과정에서 메모리 해제가 늦어지고, 이는 Ui-thread의 대기상태가 길어짐을 의미합니다.
   - 결국 ui에 응답성이 떨어집니다.
   
@@ -76,7 +76,7 @@ toc_sticky: true
 - **GC Trigger by Work-Thread (Good)**
 ![이미지](/assets/images/csharp/corrency_work_workthread.png)
   - work(other)-thread 가 Blocked 되어 멈춥니다.
-  - ui-thread 와 GC-thread가 경합하며 진행 됩니다.
+  - ui-thread 와 GC-thread가 경합하며 진행됩니다.
   - ui-thread는 이상적인 상황이라면 적절히 자원이 할당되어 **응답성을 높일 것입니다.**
 
 
@@ -110,7 +110,7 @@ toc_sticky: true
 - Background GC 설명 [[Link]](https://docs.microsoft.com/ko-kr/dotnet/standard/garbage-collection/background-gc){:target="_blank"}
 
 ## GC Configuration
-- GC Mode를 설정 하는 방법은 .net 버전과 환경에 따라 여러가지가 있을수 있습니다.
+- GC Mode를 설정 하는 방법은 .net 버전과 환경에 따라 여러 가지가 있을 수 있습니다.
 - 제가 설정한 방법은 아래와 같습니다.
 - 응용 프로그램을 만들면 App.config파일이 생성 됩니다.
 - ![이미지](/assets/images/csharp/gc-config.png)
