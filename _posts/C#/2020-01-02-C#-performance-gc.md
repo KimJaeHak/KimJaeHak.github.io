@@ -92,7 +92,7 @@ toc_sticky: true
   - GC Thread가 따로 존재 하지 않습니다.
   - GC Trigger한 Thread가 직접 Collection을 수행 합니다.
   - Ui-thread에서 GC Trigger되면 Work-Threads와 경쟁하지 않고, **Waiting** 상태에서 더 빨리 해제됩니다.
-  - Ui-thread가 GC 를 수행하기 때문에 Ui가 Waiting되므로 응답성은 떨어지게 됩니다.
+  - Ui-thread가 GC 를 수행하기 때문에 Ui가 Waiting상태로 응답성은 떨어지게 됩니다.
 
 ## [Server GC]
 - 별도의 GC-Thread가 존재 합니다. 
