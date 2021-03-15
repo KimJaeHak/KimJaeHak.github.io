@@ -22,6 +22,7 @@ use_math : true
   - [Vector Multiplication](#vector-multiplication)
     - [Dot Product (내적)](#dot-product-내적)
     - [Cross Product](#cross-product)
+    - [Scalar Triple Product](#scalar-triple-product)
 
 
 # Vectors and Matrices
@@ -220,3 +221,13 @@ $$
 |$a\times (b\times c) = b(a\cdot c) - c(a\cdot b)$| Vector triple product|
 |$(a\times b)^2 = a^2b^2 - (a\cdot b)^2$| 라그랑주 항등식|
 
+### Scalar Triple Product
+순서에 상관없이 동일한 결과를 나타 냅니다.
+
+$$
+    [a,b,c] = (a\times b)\cdot c = (b\times c)\cdot a = (c\times a)\cdot b
+$$
+
+Scalar Triple Product의 기하학적 의미는 (parallelepiped)**평행육면체의 부피**와 같습니다.
+
+![image](/assets/images/Graphics/parallelepiped.png){:width="30%" height="30%"}
