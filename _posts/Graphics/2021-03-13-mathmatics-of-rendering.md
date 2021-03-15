@@ -198,9 +198,25 @@ $$
                    \end{bmatrix}
 $$
 
-> 외적의 크기 공식
+> 외적의 크기 공식  
 
 $$
     \|a \times b\| = \|a\| \|b\|\sin{\theta}
 $$
+
+>또한 외적의 크기는 기하학적 의미로는 평행사변형의 넓이에 해당 한다.  
+
+![image](/assets/images/Graphics/parallelogram.png){:width="50%" height="50%"}
+
+> 외적은 $a \times b = -b \times a$ **비가환성** 특징을 가진다.
+
+> **외적의 속성**
+
+| 속성  | 설명  |
+|---|---|
+| $a \times b = -b \times a$  |  외적의 비가환성 |
+|$a \times (b + c) = a \times b + a \times c$| 외적의 분배법칙|
+|$(ta)\times b = a \times (tb) = t(a \times b)$| 스칼라 인수분해|
+|$a\times (b\times c) = b(a\cdot c) - c(a\cdot b)$| Vector triple product|
+|$(a\times b)^2 = a^2b^2 - (a\cdot b)^2$| 라그랑주 항등식|
 
