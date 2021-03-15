@@ -231,3 +231,9 @@ $$
 Scalar Triple Product의 기하학적 의미는 (parallelepiped)**평행육면체의 부피**와 같습니다.
 
 ![image](/assets/images/Graphics/parallelepiped.png){:width="30%" height="30%"}
+
+위 그림으로 부터 아래와 같은 공식을 유도할 수 있습니다. ($\theta = 90-\varphi$)
+
+$$
+ (a\times b)\cdot c = \|{a\times b}\|\|c\|\cos\theta = \|a\times b|\|c\|\sin\varphi
+$$
