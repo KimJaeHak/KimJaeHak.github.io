@@ -1,7 +1,7 @@
 ---
 title: "Mathmatics of Rerndering"
 categories:
- - Graphics
+ - Math
 tags:
  - math
  - game engine
@@ -21,11 +21,13 @@ use_math : true
       - [벡터의 표기법](#벡터의-표기법)
   - [Vector Multiplication](#vector-multiplication)
     - [Dot Product (내적)](#dot-product-내적)
-    - [Cross Product](#cross-product)
+    - [Cross Product (외적)](#cross-product-외적)
     - [Scalar Triple Product](#scalar-triple-product)
   - [Vector Projection](#vector-projection)
     - [Gram-Schmidt process](#gram-schmidt-process)
   - [Matrix Inversion](#matrix-inversion)
+    - [Identity Matrices (역행렬)](#identity-matrices-역행렬)
+    - [Determinants (행렬식)](#determinants-행렬식)
 
 
 # Vectors and Matrices
@@ -164,7 +166,7 @@ $$\|V\| = \sqrt{\sum_{i=0}^{n-1}v_i^2}$$
 |$a \cdot (b+c) = a \cdot b + a \cdot c$| 분배 법칙  |
 |$(ta)\cdot b = a \cdot (tb) = t(a \cdot b)$| 인수분해  |
 
-### Cross Product
+### Cross Product (외적)
 
 2개의 3차원 Vector에서 다음과 같은 공식
 
@@ -274,7 +276,7 @@ $$
     a_{\perp b} = \vec{a} - a_{\parallel b} = \vec{a} - \frac{\vec{a}\cdot \vec{b}}{\|b\|^2}\vec{b}
 $$
 
-![image](/assets/images/Graphics/projection_tri.png){: width="50%" height="50%"}
+![image](/assets/images/Graphics/projection_tri.png){: width="40%" height="40%"}
 
 위 그림을 보면 $\hspace{0.5em}\vec{a}\hspace{0.5em} 와\hspace{0.5em} \vec{b}$의 Projection과 Rejection이  
 직각삼각형의 밑변과 높이에 해당하는 것을 볼 수 있으며, 삼각함수에 따라서 아래와 같은 공식이 된다.
@@ -295,3 +297,56 @@ $$
 $$
 
 ## Matrix Inversion
+
+우리는 종종 A좌표계 에서 B좌표계로 변환하는 일을 수행하게 됩니다.  
+이떄 A -> B로 혹은 B -> A로 좌표계를 변환하게 되는데 이때 우리는 변환 행렬인  
+$M \hspace{0.5em}, M^{-1}$ 을 찾아야 하며, $M^{-1}$ 을 Inverse Matrix라고 합니다.  
+
+### Identity Matrices (역행렬)
+Matrix의 곱에 대한 항등원 이라고 생각하면 됩니다.
+항등원이란 : 어떤수에 연산을 했을때 자기자신이 나오게 만드는 값
+
+$I$ 는 다음과 같이 정의 됩니다.  
+
+$$
+ I_n = \begin{bmatrix}
+        1&0&\dotsb&0 \\[0.3em]
+        0&1&\dotsb&0 \\[0.3em]
+        \vdots&\vdots&\ddots&\vdots \\[0.3em]
+        0&0&\dotsb&1 \\[0.3em]
+       \end{bmatrix} \\[1em]
+
+AI_n = A \\
+I_nB = B \\[1em]
+\therefore (IB)_{ij} = \sum_{k=0}^{n-1}I_{ik}B_{kj} = B_{ij}
+$$
+
+**Inverse Matrix(역행렬)의 특징**  
+- n by n 정방행렬(정사각행렬) 에서만 존재 합니다. 
+- $MM^{-1} = I_n$ 또는 $M^{-1}M = I$ 입니다.
+- 역행렬은 항상 존재하지는 않습니다.
+- Determinant(행렬식)을 이용해서 존재 유무를 알 수 있습니다.
+
+### Determinants (행렬식)
+> 행렬식의 공식은 다음과 같습니다.
+
+$$
+    det(M) = \sum_{j=0}^{n-1}M_{kj}(-1)^{k+j}|M_{\bar{kj}}| \\[0.5em]
+    det(M) = \sum_{i=0}^{n-1}M_{ik}(-1)^{i+k}|M_{\bar{ik}}| \\[0.5em]
+    \because det(M^T) = det(M)\\[0.5em]
+    (|M_{\bar{kj}}|:k행\hspace{0.5em}과\hspace{0.5em}j열을\hspace{0.5em}제외한\hspace{0.5em}Minor\hspace{0.5em}Matrix에\hspace{0.5em}대한\hspace{0.5em} 행렬식)
+$$
+
+>위 공식의 의미는 다음과 같다.
+
+![image](/assets/images/Graphics/determinents.png){: width="50%" height="50%"}
+
+Determinent Property
+| 속성  | 설명  |
+|---|---|
+| $det(I_n) = 1$  |   |
+| $det(A^T) = det(A)$  |   |
+| $det(A^{-1}) = 1/det(A)$ |   |
+| $det(AB) = det(A)det(b)$  |   |
+| $det(tA) = t^ndet(A)$  |   |
+
