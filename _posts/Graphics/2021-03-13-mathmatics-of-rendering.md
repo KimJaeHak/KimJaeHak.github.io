@@ -23,6 +23,9 @@ use_math : true
     - [Dot Product (내적)](#dot-product-내적)
     - [Cross Product](#cross-product)
     - [Scalar Triple Product](#scalar-triple-product)
+  - [Vector Projection](#vector-projection)
+    - [Gram-Schmidt process](#gram-schmidt-process)
+  - [Matrix Inversion](#matrix-inversion)
 
 
 # Vectors and Matrices
@@ -237,3 +240,58 @@ Scalar Triple Product의 기하학적 의미는 (parallelepiped)**평행육면�
 $$
  (a\times b)\cdot c = \|{a\times b}\|\|c\|\cos\theta = \|a\times b|\|c\|\sin\varphi
 $$
+
+## Vector Projection
+x, y, z Axis에 일직선이 되도록 아래의 unit Vector를 정의 한다.
+i, j ,k 를 아래와 같이 정의 한다.  
+
+$$
+ i =(1,0,0) \\[0.3em]
+ j=(0,1,0)  \\[0.3em]
+ k=(0,0,1)  \\[0.3em]
+$$
+
+3D Vector를 다음과 같이 표기 할 수 있다.  
+
+$$
+    v = v_xi + v_yj + v_zk \\
+    (v\cdot i = \|v\| \|i\|\cos\theta) \\
+   \color{red}{i\hspace{0.5em} is\hspace{0.5em} unit\hspace{0.5em}vector}  \\
+    (v_x = v\cdot i,\hspace{0.5em} v_y = v\cdot j,\hspace{0.5em} v_z = v\cdot k) \\
+    v = (v\cdot i)i + (v\cdot j)j + (v\cdot k)k
+$$  
+
+
+일반적으로 $\vec{a}$ 를 $\vec{b}$에 **Projection(사영)** 시킬때 공식은 아래와 같다.
+
+$$
+    a_{\parallel b} = \frac{\vec{a}\cdot \vec{b}}{\|b\|^2}\vec{b}
+$$
+
+$rejection\hspace{0.5em} \vec{a} \hspace{0.5em} from\hspace{0.5em} \vec{b}$ 의 공식은 다음과 같다.
+
+$$
+    a_{\perp b} = \vec{a} - a_{\parallel b} = \vec{a} - \frac{\vec{a}\cdot \vec{b}}{\|b\|^2}\vec{b}
+$$
+
+![image](/assets/images/Graphics/projection_tri.png){: width="50%" height="50%"}
+
+위 그림을 보면 $\hspace{0.5em}\vec{a}\hspace{0.5em} 와\hspace{0.5em} \vec{b}$의 Projection과 Rejection이  
+직각삼각형의 밑변과 높이에 해당하는 것을 볼 수 있으며, 삼각함수에 따라서 아래와 같은 공식이 된다.
+
+$$
+    \|a_{\parallel b}\| = \|a\|\cos\theta \\
+    \|a_{\perp b}\| = \|a\|\sin\theta
+$$
+
+### Gram-Schmidt process
+**Gram-Schmidt process** 특정 벡터의 정규직교기저를 구하는 방법이다.  
+공식은 아래와 같다.
+
+$$
+    \vec{U}_i 
+    = \vec{V_i} - \sum_{k=1}^{i-1}(\vec{V_i})_{\parallel \vec{U_k}}
+    = \vec{V_i} - \sum_{k=1}^{i-1}\frac{\vec{V_i}\cdot \vec{U_k}}{\vec{U_k^2}}\vec{U_k}
+$$
+
+## Matrix Inversion
