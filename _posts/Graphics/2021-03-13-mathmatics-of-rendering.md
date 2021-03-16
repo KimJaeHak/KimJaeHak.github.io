@@ -28,6 +28,7 @@ use_math : true
   - [Matrix Inversion](#matrix-inversion)
     - [Identity Matrices (역행렬)](#identity-matrices-역행렬)
     - [Determinants (행렬식)](#determinants-행렬식)
+    - [Elementary Matrices (기본행렬)](#elementary-matrices-기본행렬)
 
 
 # Vectors and Matrices
@@ -344,9 +345,19 @@ $$
 Determinent Property
 | 속성  | 설명  |
 |---|---|
-| $det(I_n) = 1$  |   |
-| $det(A^T) = det(A)$  |   |
-| $det(A^{-1}) = 1/det(A)$ |   |
-| $det(AB) = det(A)det(b)$  |   |
-| $det(tA) = t^ndet(A)$  |   |
+| $det(I_n) = 1$  | 단위행렬의 행렬식  |
+| $det(A^T) = det(A)$  | 전치행렬의 행렬식  |
+| $det(A^{-1}) = 1/det(A)$ | 역행렬의 행렬식 |
+| $det(AB) = det(A)det(b)$  | 행렬식의 곱 법칙 |
+| $det(tA) = t^ndet(A)$  | Scalar factorization 의 행렬식 |
+
+### Elementary Matrices (기본행렬)
+Matrix M 의 역행렬을 구할때 M이 I(identity matrix)가 될때 까지 기본 연산을 수행합니다.
+이러한 기본 연산으로 표현되는 행렬을 기본행렬 이라고 합니다.
+
+아래에 3가지의 기본행 연산이 있습니다.  
+(a) 0이 아닌 스칼라 값을 M의 행에 곱합니다.  
+(b) M의 행의 위치를 바뀌어 줍니다.  
+(C) 스칼라 값을 곱한 행을 다른행에 더합니다.  
+
 
