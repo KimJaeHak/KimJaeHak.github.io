@@ -29,6 +29,7 @@ use_math : true
     - [Identity Matrices (역행렬)](#identity-matrices-역행렬)
     - [Determinants (행렬식)](#determinants-행렬식)
     - [Elementary Matrices (기본행렬)](#elementary-matrices-기본행렬)
+    - [Inverse Calculation](#inverse-calculation)
 
 
 # Vectors and Matrices
@@ -304,7 +305,7 @@ $$
 $M \hspace{0.5em}, M^{-1}$ 을 찾아야 하며, $M^{-1}$ 을 Inverse Matrix라고 합니다.  
 
 ### Identity Matrices (역행렬)
-Matrix의 곱에 대한 항등원 이라고 생각하면 됩니다.
+Matrix의 곱에 대한 항등원 이라고 생각하면 됩니다.  
 항등원이란 : 어떤수에 연산을 했을때 자기자신이 나오게 만드는 값
 
 $I$ 는 다음과 같이 정의 됩니다.  
@@ -342,7 +343,8 @@ $$
 
 ![image](/assets/images/Graphics/determinents.png){: width="50%" height="50%"}
 
-Determinent Property
+Determinent Property  
+
 | 속성  | 설명  |
 |---|---|
 | $det(I_n) = 1$  | 단위행렬의 행렬식  |
@@ -352,12 +354,36 @@ Determinent Property
 | $det(tA) = t^ndet(A)$  | Scalar factorization 의 행렬식 |
 
 ### Elementary Matrices (기본행렬)
-Matrix M 의 역행렬을 구할때 M이 I(identity matrix)가 될때 까지 기본 연산을 수행합니다.
-이러한 기본 연산으로 표현되는 행렬을 기본행렬 이라고 합니다.
+단위행렬 $I_n$에서 기본행연산(elementary row operation)을 한 번 실행하여 얻어지는 행렬이다.
 
-아래에 3가지의 기본행 연산이 있습니다.  
+아래에 3가지의 기본행연산이 있습니다.  
 (a) 0이 아닌 스칼라 값을 M의 행에 곱합니다.  
 (b) M의 행의 위치를 바뀌어 줍니다.  
 (C) 스칼라 값을 곱한 행을 다른행에 더합니다.  
 
+> 기본행 연산 중 (b)의 경우는 행교환을 하게 되면 교환하기 전/후 Matrix Determinant의  
+부호가 반대가 된다는 사실입니다.  
 
+$$
+ \begin{bmatrix}
+     c & d \\
+     a & b \\
+ \end{bmatrix} = cb-da = -(ad - bc) = 
+ \begin{bmatrix}
+     a & b \\
+     c & d \\
+ \end{bmatrix}
+$$
+
+
+위 사실을 기반으로 가장 중요한 사실은 <mark style='background:pink'>동일한 Row를 포함하고 있는 행렬의 행렬식의 값은 0</mark> 이라는 사실입니다.  
+행 교환을 했지만 Matrix자체에 변화가 없기 때문에 유추해 보면 양수와 음수 값이 같은 경우는 0이기 때문입니다.  
+
+$$
+    \begin{bmatrix}
+        1 & 2 \\
+        1 & 2 \\       
+    \end{bmatrix} = ad - bc = (1\times2) - (2\times1) = 0
+$$
+
+### Inverse Calculation
