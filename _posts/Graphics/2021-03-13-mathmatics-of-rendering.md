@@ -26,7 +26,7 @@ use_math : true
   - [Vector Projection](#vector-projection)
     - [Gram-Schmidt process](#gram-schmidt-process)
   - [Matrix Inversion](#matrix-inversion)
-    - [Identity Matrices (역행렬)](#identity-matrices-역행렬)
+    - [Identity Matrices (단위행렬)](#identity-matrices-단위행렬)
     - [Determinants (행렬식)](#determinants-행렬식)
     - [Elementary Matrices (기본행렬)](#elementary-matrices-기본행렬)
     - [Inverse Calculation (역행렬)](#inverse-calculation-역행렬)
@@ -304,7 +304,7 @@ $$
 이떄 A -> B로 혹은 B -> A로 좌표계를 변환하게 되는데 이때 우리는 변환 행렬인  
 $M \hspace{0.5em}, M^{-1}$ 을 찾아야 하며, $M^{-1}$ 을 Inverse Matrix라고 합니다.  
 
-### Identity Matrices (역행렬)
+### Identity Matrices (단위행렬)
 Matrix의 곱에 대한 항등원 이라고 생각하면 됩니다.  
 항등원이란 : 어떤수에 연산을 했을때 자기자신이 나오게 만드는 값
 
