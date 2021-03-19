@@ -29,7 +29,7 @@ use_math : true
     - [Identity Matrices (역행렬)](#identity-matrices-역행렬)
     - [Determinants (행렬식)](#determinants-행렬식)
     - [Elementary Matrices (기본행렬)](#elementary-matrices-기본행렬)
-    - [Inverse Calculation](#inverse-calculation)
+    - [Inverse Calculation (역행렬)](#inverse-calculation-역행렬)
 
 
 # Vectors and Matrices
@@ -386,4 +386,70 @@ $$
     \end{bmatrix} = ad - bc = (1\times2) - (2\times1) = 0
 $$
 
-### Inverse Calculation
+### Inverse Calculation (역행렬)
+- 역행렬을 구한는 방법 두가지를 설명 하고자 합니다.
+- Gauss-Jordan Elimination 
+- Determinant & Cofactor Matrix
+
+> Gauss-Jordan Elimination Case
+
+- 기본행 연산의 곱으로 역행렬을 구할 수 있습니다.
+$$
+    E_mE_{m-1}\cdots\ E_2E_1M = I
+$$
+
+- 예제
+- 기본행 연산을 양쪽 행렬에 동일하게 적용한다.
+$$
+    \left[
+        \begin{array}{ccc|ccc}
+            1&0&1& 1&0&0 \\
+            0&2&1& 0&1&0 \\
+            1&1&1& 0&0&1 \\
+        \end{array}
+    \right] \\[1em]
+
+    row1\times(-1) + row3\\
+    \left[
+        \begin{array}{ccc|ccc}
+            1&0&1& 1&0&0 \\
+            0&2&1& 0&1&0 \\
+            0&1&0& -1&0&1 \\
+        \end{array}
+    \right] \\[1em]
+    
+    row2\hspace{0.3em}와\hspace{0.3em}row3\hspace{0.3em}행교환 \\
+    \left[
+        \begin{array}{ccc|ccc}
+            1&0&1& 1&0&0 \\
+            0&1&0& -1&0&1 \\
+            0&2&1& 0&1&0 \\
+        \end{array}
+    \right] \\[1em]
+
+    row2\hspace{0.3em}\times(-2)+row3 \\
+    \left[
+        \begin{array}{ccc|ccc}
+            1&0&1& 1&0&0 \\
+            0&1&0& -1&0&1 \\
+            0&0&1& 2&1&-2 \\
+        \end{array}
+    \right] \\[1em]
+
+    row3\hspace{0.3em}\times(-1)+row1 \\
+    \left[
+        \begin{array}{ccc|ccc}
+            1&0&0& -1&-1&2 \\
+            0&1&0& -1&0&1 \\
+            0&0&1& 2&1&-2 \\
+        \end{array}
+    \right] \\[1em]
+
+    \therefore M^{-1} = 
+    \begin{bmatrix}
+        -1&-1&2 \\[0.3em]
+        -1&0&1 \\[0.3em]
+        2&1&-2 \\[0.3em]
+    \end{bmatrix}
+$$
+
