@@ -235,7 +235,7 @@ $$
     [a,b,c] = (a\times b)\cdot c = (b\times c)\cdot a = (c\times a)\cdot b
 $$
 
-Scalar Triple Product의 기하학적 의미는 (parallelepiped)**평행육면체의 부피**와 같습니다.
+Scalar Triple Product의 기하학적 의미는 (parallelepiped)<mark style='background:pink'>평행육면체의 부피</mark>와 같습니다.
 
 ![image](/assets/images/Graphics/parallelepiped.png){:width="30%" height="30%"}
 
@@ -394,12 +394,14 @@ $$
 > Gauss-Jordan Elimination Case
 
 - 기본행 연산의 곱으로 역행렬을 구할 수 있습니다.
+
 $$
     E_mE_{m-1}\cdots\ E_2E_1M = I
 $$
 
 - 예제
-- 기본행 연산을 양쪽 행렬에 동일하게 적용한다.
+- 기본행 연산을 양쪽 행렬에 동일하게 적용한다.  
+
 $$
     \left[
         \begin{array}{ccc|ccc}
@@ -407,49 +409,68 @@ $$
             0&2&1& 0&1&0 \\
             1&1&1& 0&0&1 \\
         \end{array}
-    \right] \\[1em]
-
-    row1\times(-1) + row3\\
+    \right] \\[2em]
     \left[
         \begin{array}{ccc|ccc}
             1&0&1& 1&0&0 \\
             0&2&1& 0&1&0 \\
             0&1&0& -1&0&1 \\
         \end{array}
-    \right] \\[1em]
-    
-    row2\hspace{0.3em}와\hspace{0.3em}row3\hspace{0.3em}행교환 \\
+    \right] row1\times(-1) + row3
+    \\[2em]
     \left[
         \begin{array}{ccc|ccc}
             1&0&1& 1&0&0 \\
             0&1&0& -1&0&1 \\
             0&2&1& 0&1&0 \\
         \end{array}
-    \right] \\[1em]
-
-    row2\hspace{0.3em}\times(-2)+row3 \\
+    \right] row2\hspace{0.3em}와\hspace{0.3em}row3\hspace{0.3em}행교환
+    \\[2em]
     \left[
         \begin{array}{ccc|ccc}
             1&0&1& 1&0&0 \\
             0&1&0& -1&0&1 \\
             0&0&1& 2&1&-2 \\
         \end{array}
-    \right] \\[1em]
-
-    row3\hspace{0.3em}\times(-1)+row1 \\
+    \right] row2\hspace{0.3em}\times(-2)+row3
+    \\[2em]
     \left[
         \begin{array}{ccc|ccc}
             1&0&0& -1&-1&2 \\
             0&1&0& -1&0&1 \\
             0&0&1& 2&1&-2 \\
         \end{array}
-    \right] \\[1em]
+    \right] row3\hspace{0.3em}\times(-1)+row1
+    \\[3em]
 
     \therefore M^{-1} = 
     \begin{bmatrix}
         -1&-1&2 \\[0.3em]
         -1&0&1 \\[0.3em]
         2&1&-2 \\[0.3em]
-    \end{bmatrix}
+    \end{bmatrix} \\
 $$
 
+> Determinant & Cofactor Matrix Case
+
+$$
+    (Cofactor)\hspace{0.3em} C_{ij} = (-1)^{i+j}|M_{\bar{ij}}| \\[0.5em]
+    (adjugate\hspace{0.3em}of\hspace{0.3em}the\hspace{0.3em}matrix\hspace{0.3em}M) = C^T(M)\\[0.5em]
+
+    \therefore M^{-1} = \frac{C^T(M)}{det(M)}
+$$
+
+- $3\times3$ 행렬의 경우는 다음과 같이 벡터로 계산 할 수 있음.
+
+$$
+    (M =\begin{bmatrix}
+        \vec{a} & \vec{b} & \vec{c}
+    \end{bmatrix}) \\[0.8em]
+
+    M^{-1} = \frac{1}{[\vec{a},\vec{b},\vec{c}]}
+    \begin{bmatrix}
+        \vec{b}\times \vec{c} \\
+        \vec{c}\times \vec{a} \\
+        \vec{a}\times \vec{b} \\
+    \end{bmatrix}
+$$
