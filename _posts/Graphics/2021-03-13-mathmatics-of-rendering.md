@@ -33,6 +33,8 @@ use_math : true
       - [$4 \times 4$ Matrix에서 $M^{-1}$을 구하는 효율적인 방법.](#4-times-4-matrix에서-m-1을-구하는-효율적인-방법)
 - [Transforms](#transforms)
   - [Coordinate Spaces](#coordinate-spaces)
+    - [Transformation Matrices](#transformation-matrices)
+    - [Orthogonal Transformation (직교변환)](#orthogonal-transformation-직교변환)
 
 
 # Vectors and Matrices
@@ -520,3 +522,40 @@ $$
 
 # Transforms
 ## Coordinate Spaces
+### Transformation Matrices
+Position $p_A$ A의 좌표계로 부터 Position $p_B$ B 좌표계로 변환하는 표현은 아래와 같다.
+
+$$
+    
+    p_B = Mp_A + \vec{t}\\
+    (affine\hspace{0.5em} transformation) \\
+$$
+
+- $M$ 은 $3\times3$ Matrix, $\vec{t}$는 3D Translation Vector 이며 좌표계의 Origin(원점)을 이동시킵니다.
+- 우리는 역으로 B의 좌표계에서 A의 좌표계로 변환 할 수도 있습니다.
+
+$$
+    p_a = M^{-1}(p_b - \vec{t})
+$$
+
+- $M$과 $\vec{t}$는 $4\times4$ matrix로 표현 할 수 있습니다. 그 전까지는 일단 $\vec{t}$는 무시하고
+- 원점(origin)은 같다는 전제하에 $3\times3$ 매트릭스 에만 당분간 집중 합니다.
+
+- 일반적인 Linear trasnformation(원점이 동일한)은 아래와 같이 나타 냅니다.
+
+$$
+    v_b = Mv_a \\[0.5em]
+    M=\begin{bmatrix}
+         a & b & c 
+    \end{bmatrix}
+    \\[0.5em]
+    Then 
+    \\
+M\begin{bmatrix} 1\\ 0\\ 0\\ \end{bmatrix} = a, \hspace{0.5em} 
+M\begin{bmatrix} 0\\ 1\\ 0\\ \end{bmatrix} = b, \hspace{0.5em} 
+M\begin{bmatrix} 0\\ 0\\ 1\\ \end{bmatrix} = c  \hspace{0.5em} 
+\\[0.8em]
+\therefore Mv = v_xa + v_yb + v_zc
+$$
+
+### Orthogonal Transformation (직교변환)
