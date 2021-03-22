@@ -30,6 +30,9 @@ use_math : true
     - [Determinants (행렬식)](#determinants-행렬식)
     - [Elementary Matrices (기본행렬)](#elementary-matrices-기본행렬)
     - [Inverse Calculation (역행렬)](#inverse-calculation-역행렬)
+      - [$4 \times 4$ Matrix에서 $M^{-1}$을 구하는 효율적인 방법.](#4-times-4-matrix에서-m-1을-구하는-효율적인-방법)
+- [Transforms](#transforms)
+  - [Coordinate Spaces](#coordinate-spaces)
 
 
 # Vectors and Matrices
@@ -474,3 +477,46 @@ $$
         \vec{a}\times \vec{b} \\
     \end{bmatrix}
 $$
+
+#### $4 \times 4$ Matrix에서 $M^{-1}$을 구하는 효율적인 방법.
+
+- 처음 3개 행에 대한 Column Vector $\vec{a},\vec{b},\vec{c},\vec{d}$ 와 4번째(마지막)행인 x, y, z, w를 다음과 같이 설정.
+
+$$
+    M = \begin{bmatrix}
+        \uparrow & \uparrow & \uparrow & \uparrow & \\
+        a & b & c& d \\
+        \downarrow & \downarrow & \downarrow & \downarrow & \\
+        \hdashline
+        x & y & z & w
+    \end{bmatrix}
+$$
+
+- 그 다음 우리는 $\vec{s},\vec{t},\vec{u},\vec{v}$를 다음과 같이 정의 합니다.
+
+$$
+    \vec{s} = \vec{a}\times \vec{b} \\
+    \vec{t} = \vec{c}\times \vec{d} \\
+    \vec{u} = y\vec{a} - x\vec{b} \\
+    \vec{v} = w\vec{c} - z\vec{d} \\[1em]
+
+    \therefore det(M) = \vec{s}\cdot \vec{v} + \vec{t} \cdot \vec{u} \\[0.5em]
+    \therefore M^{-1} = \frac{1}{\vec{s}\cdot \vec{v} + \vec{t} \cdot \vec{u}}
+                        \left[
+                            \begin{array}{c:c}
+                                \vec{b}\times \vec{v}+y\vec{t} & -\vec{b}\cdot\vec{t} \\
+                                \vec{v}\times\vec{a} - x\vec{t} & \vec{a}\cdot{t} \\
+                                \vec{d}\times\vec{u} + w\vec{s} & -\vec{d}\cdot{\vec{s}} \\
+                                \vec{u}\times\vec{c} - z\vec{s} & \vec{c}\cdot{\vec{s}}
+                            \end{array}
+
+                        \right]
+$$
+
+- 역행렬$M^{-1}$의 처음 3개의 컬럼은 위 4개의 3차원 행 벡터 에 의해서 채워 짐
+- 역행렬$M^{-1}$의 4번째 컬럼은 4차원 벡터 $(-\vec{b}\cdot\vec{t},\vec{a}\cdot{t},-\vec{d}\cdot{\vec{s}},\vec{c}\cdot{\vec{s}})$ 에 의해서 채워 짐
+- 대부분 게임엔진에서 $M$ 행렬의 4번재 Row는 $\begin{bmatrix} 0&0&0&1 \end{bmatrix}$ 이므로
+- $x=y=z=0,\hspace{0.3em} w=1$ 이고, $\vec{u}=0, \vec{v}=\vec{c}$ 이 된다.
+
+# Transforms
+## Coordinate Spaces
