@@ -559,3 +559,11 @@ M\begin{bmatrix} 0\\ 0\\ 1\\ \end{bmatrix} = c  \hspace{0.5em}
 $$
 
 ### Orthogonal Transformation (직교변환)
+- 게임 엔진에서 대부분 Transform Matrices를 Perpendicular unit-length columns(직교 유닛 컬럼)으로 표헌합니다.
+- 이러한 Matrices를 우리는 Orthogonal matrices(직교 행렬) 이라고 합니다.
+- 아래는 모두 같은 의미를 지닙니다.
+1. M은 Orthogonal Matrix(직교행렬) 이다.
+2. $M^{-1} = M^T$는 같다.
+3. $M$은 columns Mutually Perpendicular unit-length
+4. $M$은 rows Mutually Perpendicular unit-length
+
