@@ -35,6 +35,8 @@ use_math : true
   - [Coordinate Spaces](#coordinate-spaces)
     - [Transformation Matrices](#transformation-matrices)
     - [Orthogonal Transformation (직교변환)](#orthogonal-transformation-직교변환)
+    - [Transform Composition](#transform-composition)
+  - [Rotations (회전)](#rotations-회전)
 
 
 # Vectors and Matrices
@@ -567,3 +569,19 @@ $$
 3. $M$은 columns Mutually Perpendicular unit-length
 4. $M$은 rows Mutually Perpendicular unit-length
 
+### Transform Composition 
+- Transform $A$ 는 A좌표계 에서 적용된 변환이라고 한다면, 그와 동등한 B좌표계에서의 변환은 아래와 같습니다.
+- 행렬 $M$ 은 좌표계 $A \rightarrow B$ 로 변환행렬.
+- 행렬 $M^{-1}$ 은 좌표게 $B \rightarrow A$로 변환행렬.
+
+$$
+    B=MAM^{-1} 
+$$
+
+## Rotations (회전)
+- 어떤 $\vec{v}$를 z축을 기준으로 회전 시키려고 합니다.
+- $\vec{v}$를 다음과 같이 표기 합니다.
+- $\vec{v} = v_xi + v_yj + v_zk$
+- i,j,k는 좌표축과 평행한 unit vector입니다.
+- $k$는 z axis와 평행하므로 변화가 없고, $v_xi + v_yj$만 변화될 것입니다.
+- 
