@@ -37,6 +37,7 @@ use_math : true
     - [Orthogonal Transformation (직교변환)](#orthogonal-transformation-직교변환)
     - [Transform Composition](#transform-composition)
   - [Rotations (회전)](#rotations-회전)
+    - [Rotation about an Arbitrary Axis (임의의 축에 대한 회전)](#rotation-about-an-arbitrary-axis-임의의-축에-대한-회전)
 
 
 # Vectors and Matrices
@@ -584,4 +585,51 @@ $$
 - $\vec{v} = v_xi + v_yj + v_zk$
 - i,j,k는 좌표축과 평행한 unit vector입니다.
 - $k$는 z axis와 평행하므로 변화가 없고, $v_xi + v_yj$만 변화될 것입니다.
+
+![image](/assets/images/Graphics/rotate.png){:width="40%" height="40%"}
+
+- 위 그림에서 $v_x\vec{i}$를 $\theta$ 만큼 회전 시키면 아래와 같습니다.
+- $\vec{i}$는 $unit\hspace{0.5em} vector$ 입니다.
+
+$$
+    v_x\cos\theta\vec{i} + v_x\sin\theta\vec{j}
+$$
+
+- 또 한 우리는 $v_y\vec{j}$도 계산해 줘야 합니다.
+- 위 그림의 j축을 기준으로 $\theta$ 만큼 회전한 값을 구해주면 아래와 같습니다.
+
+$$
+    v_y\cos\theta\vec{j} - v_y\sin\theta\vec{i}
+$$
+
+$$
+    \vec{v}' = (v_x\cos\theta - v_y\sin\theta)\vec{i} + (v_x\sin\theta + v_y\cos\theta)\vec{j} + v_z\vec{k}
+    \\[1em]
+
+    \therefore 
+    \begin{bmatrix}
+        v'_x \\[0.3em]
+        v'_y \\[0.3em]
+        v'_z \\[0.3em]
+    \end{bmatrix}
+
+    = \begin{bmatrix}
+        \cos\theta & -\sin\theta & 0 \\[0.3em]
+        \sin\theta & \cos\theta & 0 \\[0.3em]
+        0 & 0 & 1 \\[0.3em]
+    \end{bmatrix}
+    \begin{bmatrix}
+        v_x \\[0.3em]
+        v_y \\[0.3em]
+        v_z \\[0.3em]
+    \end{bmatrix}
+$$
+
+- 최종적으로 X, Y, Z 축에 대한 공식은 아래와 같습니다. 
+
+![image](/assets/images/Graphics/rotate_formula.png){:width="30%" height="30%"}
+
+
+### Rotation about an Arbitrary Axis (임의의 축에 대한 회전)
+- 하지만 일반적으로 회전을 할 때, 임의의 축을 중심으로 회전 할 경우가 더 많다.
 - 
