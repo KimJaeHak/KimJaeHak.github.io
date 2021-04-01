@@ -38,6 +38,7 @@ use_math : true
     - [Transform Composition](#transform-composition)
   - [Rotations (회전)](#rotations-회전)
     - [Rotation about an Arbitrary Axis (임의의 축에 대한 회전)](#rotation-about-an-arbitrary-axis-임의의-축에-대한-회전)
+  - [Reflections (반사)](#reflections-반사)
 
 
 # Vectors and Matrices
@@ -632,4 +633,33 @@ $$
 
 ### Rotation about an Arbitrary Axis (임의의 축에 대한 회전)
 - 하지만 일반적으로 회전을 할 때, 임의의 축을 중심으로 회전 할 경우가 더 많다.
-- 
+
+![이미지](/assets/images/Graphics/arbitary_axis.png){: width="50%" height="50%"}  
+
+$$
+    \|v\|\sin\alpha = v_{\perp a} = a\times v \hspace{0.5em}(same\hspace{0.5em}length.)\\
+    \\
+    \therefore v' = v_{\parallel{a}} + v_{\perp{a}}\cos\theta + (a\times v)\sin\theta
+$$  
+
+- projection과 rejection의 정의에 의해서 아래와 같이 정의된다.
+- $\vec{a} = unit\hspace{0.5em}vector$ 이기 때문에 $a^2$은 생략한다.(Projection 공식에서)  
+
+$$
+    v' = (v\cdot{a})a + [v-(v\cdot{a})a]\cos\theta + (a\times{v})\sin\theta \\[0.5em]
+    v' = v\cos\theta + (v\cdot a)a(1-\cos\theta) + (a\times v)\sin\theta \\[0.5em]
+    \because (v\cdot a)a = (v\)
+$$  
+
+
+![image](/assets/images/Graphics/rotation_fomula_arbitary_0.png){: width="50%" height="50%"}  
+
+![image](/assets/images/Graphics/rotation_fomula_arbitary_1.png){: width="50%" height="50%"}  
+
+- $c=\cos\theta$, $s=\sin\theta$  
+
+## Reflections (반사)
+- 게임엔진에서 거울이나 물표면에 반사되는 변환을 나타낼때 많이 사용 된다.
+  
+  $\vec{v} = \vec{v}_{\perp{a}}+\vec{v}_{\parallel a}\\[0.3em]$
+  $\vec{v'} = \vec{v}_{\perp a} - \vec{v}_{\parallel a}$
