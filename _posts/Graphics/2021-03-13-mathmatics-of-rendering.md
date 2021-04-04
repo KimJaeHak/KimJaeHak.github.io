@@ -644,11 +644,12 @@ $$
 
 - projection과 rejection의 정의에 의해서 아래와 같이 정의된다.
 - $\vec{a} = unit\hspace{0.5em}vector$ 이기 때문에 $a^2$은 생략한다.(Projection 공식에서)  
-
+- $a , v$ 는 벡터 입니다.
+  
 $$
     v' = (v\cdot{a})a + [v-(v\cdot{a})a]\cos\theta + (a\times{v})\sin\theta \\[0.5em]
     v' = v\cos\theta + (v\cdot a)a(1-\cos\theta) + (a\times v)\sin\theta \\[0.5em]
-    \because (v\cdot a)a = (v\)
+    \because (v\cdot a)a = (a\otimes a)v \hspace{0.3em} 이므로 \\[0.5em]
 $$  
 
 
@@ -661,5 +662,8 @@ $$
 ## Reflections (반사)
 - 게임엔진에서 거울이나 물표면에 반사되는 변환을 나타낼때 많이 사용 된다.
   
-  $\vec{v} = \vec{v}_{\perp{a}}+\vec{v}_{\parallel a}\\[0.3em]$
-  $\vec{v'} = \vec{v}_{\perp a} - \vec{v}_{\parallel a}$
+$$
+  \vec{v} = \vec{v}_{\perp{a}}+\vec{v}_{\parallel a}\\[0.3em]
+  \vec{v'} = \vec{v}_{\perp a} - \vec{v}_{\parallel a}
+$$
+
