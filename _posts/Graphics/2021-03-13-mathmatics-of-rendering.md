@@ -638,3 +638,30 @@ $$
   \vec{v'} = \vec{v}_{\perp a} - \vec{v}_{\parallel a}
 $$
 
+![image](/assets/images/Graphics/reflect.png){: width="30%" height="30%"}
+
+## Scales
+- 객체의 사이즈를 확장 하거나 축소하는 변환 입니다.
+- Uniform Scale : 모든 방향이 동일한 크기로 확장 하는것.
+- Nonuniform Scale : 어떤 한 방향이 다른 방향에 비해서 크거나 작은 크기로 확장 되는것.
+
+$$
+    M_{scale}(s_x, s_y, s_z) = 
+    
+    \begin{bmatrix}
+        s_x & 0 & 0 \\[0.3em]    
+        0 & s_y & 0 \\[0.3em]    
+        0 & 0 & s_z \\[0.3em]    
+    \end{bmatrix}
+$$
+
+- 우리는 x, y, z 축 이 아닌 특정 방향 $\vec{a}$ 대해서 확대/축소 할 수도 있습니다.
+
+![image](/assets/images/Graphics/scale_a.png){: width="40%" height="40%"}
+
+- 위 그림으로 아래와 같은 공식을 유도 할 수 있습니다.
+
+$$
+    \vec{v'} = s\vec{v_{\parallel a}} + \vec{v_{\perp a}} \\[0.5em]
+$$
+![image](/assets/images/Graphics/scale_s_a.png){: width="40%" height="40%"}
