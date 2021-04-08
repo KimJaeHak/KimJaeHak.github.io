@@ -8,37 +8,9 @@ tags:
  - mathmatics
  - rendering
 use_math : true
+toc: true
+toc_sticky: true
 ---
-[Table Of Contents]
-- [Vectors and Matrices](#vectors-and-matrices)
-  - [Basic Vector Operations](#basic-vector-operations)
-    - [Vector Magnitude(백터의 크기)](#vector-magnitude백터의-크기)
-    - [unit Vector](#unit-vector)
-    - [Vector의 덧셈 및 곱셈에 관한 성질](#vector의-덧셈-및-곱셈에-관한-성질)
-  - [Matrix(행렬) 의 기초](#matrix행렬-의-기초)
-      - [Matrix Multiplication Transpose](#matrix-multiplication-transpose)
-      - [antisymmetic matrix OR skew-symmetric matrix](#antisymmetic-matrix-or-skew-symmetric-matrix)
-      - [벡터의 표기법](#벡터의-표기법)
-  - [Vector Multiplication](#vector-multiplication)
-    - [Dot Product (내적)](#dot-product-내적)
-    - [Cross Product (외적)](#cross-product-외적)
-    - [Scalar Triple Product](#scalar-triple-product)
-  - [Vector Projection](#vector-projection)
-    - [Gram-Schmidt process](#gram-schmidt-process)
-  - [Matrix Inversion](#matrix-inversion)
-    - [Identity Matrices (단위행렬)](#identity-matrices-단위행렬)
-    - [Determinants (행렬식)](#determinants-행렬식)
-    - [Elementary Matrices (기본행렬)](#elementary-matrices-기본행렬)
-    - [Inverse Calculation (역행렬)](#inverse-calculation-역행렬)
-      - [$4 \times 4$ Matrix에서 $M^{-1}$을 구하는 효율적인 방법.](#4-times-4-matrix에서-m-1을-구하는-효율적인-방법)
-- [Transforms](#transforms)
-  - [Coordinate Spaces](#coordinate-spaces)
-    - [Transformation Matrices](#transformation-matrices)
-    - [Orthogonal Transformation (직교변환)](#orthogonal-transformation-직교변환)
-    - [Transform Composition](#transform-composition)
-  - [Rotations (회전)](#rotations-회전)
-    - [Rotation about an Arbitrary Axis (임의의 축에 대한 회전)](#rotation-about-an-arbitrary-axis-임의의-축에-대한-회전)
-
 
 # Vectors and Matrices
 ## Basic Vector Operations
@@ -632,4 +604,4 @@ $$
 
 ### Rotation about an Arbitrary Axis (임의의 축에 대한 회전)
 - 하지만 일반적으로 회전을 할 때, 임의의 축을 중심으로 회전 할 경우가 더 많다.
-- 
+
