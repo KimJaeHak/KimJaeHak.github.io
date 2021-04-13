@@ -663,5 +663,24 @@ $$
 
 $$
     \vec{v'} = s\vec{v_{\parallel a}} + \vec{v_{\perp a}} \\[0.5em]
+   = s(\frac{v\cdot a}{\|a\|^2}a) + (v-\frac{v\cdot a}{\|a\|^2}a) \\[0.3em]
+   = s(v\cdot a)a + v-(v\cdot a)a \\[0.3em]
+   = (s-1)(v\cdot a)a - v \\[0.3em]
+   = (s-1)(a\otimes a)v - v \\[0.3em]
+   = (s-1)
+    \begin{bmatrix}
+        a_x \\
+        a_y \\
+        a_z \\    
+    \end{bmatrix} 
+    \begin{bmatrix}  
+    a_x & a_y & a_z 
+    \end{bmatrix} - 
+    \begin{bmatrix}
+        1&0&0 \\
+        0&1&0 \\
+        0&0&1 \\
+    \end{bmatrix}v
 $$
 ![image](/assets/images/Graphics/scale_s_a.png){: width="40%" height="40%"}
+
