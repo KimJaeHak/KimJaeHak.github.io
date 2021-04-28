@@ -804,12 +804,14 @@ $$
 - $q = b + c$ 라고 하면,  $qv$ 는 $qv = (b+c)v = b\times v + cv - b\cdot v$
 - 또 $q^* = -b+c$ 입니다.
 - $qvq^*$는 아래와 같습니다.
+
 $$
     qvq^* = (b\times v + cv - b\cdot v)(-b + c) \\
           = (c^2 - b^2)v + 2(v\cdot b)b + 2c(b\times v)
 $$
 
-- $-b\times v\times b = (b\cdot v) -b^2v$
+- $-b\times v\times b = (b\cdot v) -b^2v$  
+
 $$
     qvq^* = (c^2 - s^2)v + 2s^2(v\cdot a)a + 2cs(a\times v) \\[1em]
 
