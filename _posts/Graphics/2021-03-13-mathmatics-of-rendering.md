@@ -787,3 +787,41 @@ $$
 
 - quaternions의 성질  
 ![image](/assets/images/Graphics/quternions_property.png){: width="50%" height="50%"}
+
+### Rotations With Quaternions
+
+- $q = xi + yj + zk + w$ 그리고, $v = (v_x, v_y, v_z)$ 이고 
+- 최종적으로 $v$에 의해서 회전된 $v'$은 다음과 같다.
+$$
+    v' = qvq^{-1}.
+$$
+
+- $q$가 unit quaternion 일 경우
+$$
+    \boxed{v' = qvq^*}
+$$
+
+- $q = b + c$ 라고 하면,  $qv$ 는 $qv = (b+c)v = b\times v + cv - b\cdot v$
+- 또 $q^* = -b+c$ 입니다.
+- $qvq^*$는 아래와 같습니다.
+$$
+    qvq^* = (b\times v + cv - b\cdot v)(-b + c) \\
+          = (c^2 - b^2)v + 2(v\cdot b)b + 2c(b\times v)
+$$
+
+- $-b\times v\times b = (b\cdot v) -b^2v$
+$$
+    qvq^* = (c^2 - s^2)v + 2s^2(v\cdot a)a + 2cs(a\times v) \\[1em]
+
+    c^2 - s^2 = \cos\theta \\
+    2s^2 = 1-\cos\theta\\
+    2cs = \sin\theta. \\[1em]
+
+    c = \cos\frac{\theta}{2} \\[0.5em]
+    s = \sin\frac{\theta}{2}
+$$
+
+$$
+    \boxed{q = (\sin\frac{\theta}{2})a + \cos\frac{\theta}{2}}
+$$
+
