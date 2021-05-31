@@ -663,5 +663,166 @@ $$
 
 $$
     \vec{v'} = s\vec{v_{\parallel a}} + \vec{v_{\perp a}} \\[0.5em]
+   = s(\frac{v\cdot a}{\|a\|^2}a) + (v-\frac{v\cdot a}{\|a\|^2}a) \\[0.3em]
+   = s(v\cdot a)a + v-(v\cdot a)a \\[0.3em]
+   = (s-1)(v\cdot a)a - v \\[0.3em]
+   = (s-1)(a\otimes a)v - v \\[0.3em]
+   = (s-1)
+    \begin{bmatrix}
+        a_x \\
+        a_y \\
+        a_z \\    
+    \end{bmatrix} 
+    \begin{bmatrix}  
+    a_x & a_y & a_z 
+    \end{bmatrix} - 
+    \begin{bmatrix}
+        1&0&0 \\
+        0&1&0 \\
+        0&0&1 \\
+    \end{bmatrix}v
 $$
 ![image](/assets/images/Graphics/scale_s_a.png){: width="40%" height="40%"}
+
+## Skews
+- Skews를 그림으로 설명하면 다음과 같습니다.
+![image](/assets/images/Graphics/skew.png){: width="40%" height="40%"}
+
+- 공식은 아래와 같이 유도 된다.  
+- $v' = v + a(b\cdot v)\tan\theta$  
+![image](/assets/images/Graphics/skew_fomula.png){: width="40%" height="40%"}
+
+$$
+    v' = v + a(b\cdot v)\tan\theta \\
+       = Iv + (a\otimes b)v\tan\theta \\
+       = (I + (a\otimes b)\tan\theta)v
+$$
+
+![image](/assets/images/Graphics/skew_formula_1.png){: width="50%" height="50%"}
+
+- 만약 a 와 b가 좌표시스템의 축과 같다면, $a = (1,0,0)$ , $b = (0,1,0)$
+- 공식은 아래와 같이 더 간결해 집니다.
+
+$$
+    M_{skew}(\theta, i, j) = 
+    \begin{bmatrix} 
+        1 & \tan\theta & 0 \\[0.3em]
+        0& 1 & 0 \\[0.3em]
+        0& 0 & 1 \\[0.3em]
+    \end{bmatrix}
+$$
+
+## Homogeneous Coordinates (동차 좌표)
+
+- 일반 적인 Affine Transformation 좌표계A 에서 좌표계 B로 의 공식
+
+$$
+    p_b = Mp + t
+$$
+
+- $4\times4$ 매트릭스로 나타내면 다음과 같다.
+
+$$
+    H = 
+    \begin{bmatrix}
+        M & t \\
+        0 & 1 \\
+    \end{bmatrix}
+    = 
+    \left[
+     \begin{array}{ccc|c}
+         M_{00} & M_{01} & M_{02} & t_x \\[0.3em]
+         M_{10} & M_{11} & M_{12} & t_x \\[0.3em]
+         M_{20} & M_{21} & M_{22} & t_x \\[0.3em]
+         \hdashline
+         0  & 0 & 0 & 1 \\[0.3em]
+     \end{array}
+    \right]
+$$
+
+## Quaternions
+
+### Quaternion Fundamentals 
+- x, y, z, and w are real number
+- three imaginary units $i$,$y$, and $k$  
+$$
+    q = xi + yj + zk + w
+$$
+
+$$
+    i^2 = j^2 = k^2 = ijk = -1 \\
+    ij = -ji = k \\
+    jk = ikj = i \\
+    ki = -ik = j \\
+$$
+
+- 두개의 Quaternions를 곱하면 다음과 같이 계산 됩니다.  
+![image](/assets/images/Graphics/quternions.png){: width="40%"}
+
+- $q1 = v_1 + s_1$  이고  $q_2 = v_2+s_2$ 이므로  
+$$
+    q_1q_2 = v_1\times{v_2} + s_1v_2 + s_2v_1 + s_1s_2 - v_1\cdot{v_2} \\
+    q_2q_1 = q_1q_2 - 2(v_1\times{v_2})
+$$
+
+- $q$의 켤레수는 $q^*$로 표현 한다.
+$$
+    q = v+s \\
+    q^* = -v+s \\
+    qq^* = q^*q = v^2 + s^2
+$$
+
+- quaternion의 magnitude는 아래와 같다.  
+$$
+    \boxed{\|q\| = \sqrt{qq^*} = \sqrt{v^2 + s^2}} \\
+$$
+$$
+    \|q_1q_2\| = \|q_1\|\|q_2\|
+$$
+
+- multiplicative inverse  
+$$
+    \boxed{q^{-1} = \frac{q^*}{qq^*} = \frac{-v+s}{v^2 + s^2}}
+$$
+
+- quaternions의 성질  
+![image](/assets/images/Graphics/quternions_property.png){: width="50%" height="50%"}
+
+### Rotations With Quaternions
+
+- $q = xi + yj + zk + w$ 그리고, $v = (v_x, v_y, v_z)$ 이고 
+- 최종적으로 $v$에 의해서 회전된 $v'$은 다음과 같다.
+$$
+    v' = qvq^{-1}.
+$$
+
+- $q$가 unit quaternion 일 경우
+$$
+    \boxed{v' = qvq^*}
+$$
+
+- $q = b + c$ 라고 하면,  $qv$ 는 $qv = (b+c)v = b\times v + cv - b\cdot v$
+- 또 $q^* = -b+c$ 입니다.
+- $qvq^*$는 아래와 같습니다.
+$$
+    qvq^* = (b\times v + cv - b\cdot v)(-b + c) \\
+          = (c^2 - b^2)v + 2(v\cdot b)b + 2c(b\times v)
+$$
+
+- $-b\times v\times b = (b\cdot v) -b^2v$ 라면
+
+$$
+    qvq^* = (c^2 - s^2)v + 2s^2(v\cdot a)a + 2cs(a\times v) \\[1em]
+
+    c^2 - s^2 = \cos\theta \\
+    2s^2 = 1-\cos\theta\\
+    2cs = \sin\theta. \\[1em]
+
+    c = \cos\frac{\theta}{2} \\[0.5em]
+    s = \sin\frac{\theta}{2}
+$$
+
+$$
+    \boxed{q = (\sin\frac{\theta}{2})a + \cos\frac{\theta}{2}}
+$$
+
