@@ -18,7 +18,7 @@
   <div class="sidebar-nav-item" style="font-size: 18pt">Category</div>
   <nav class="content-ul">
     {% for category in site.categories %}
-    <a href="{{ root_url }}/{{ site.category_dir }}#{{ category | first }}"
+    <a href="{{ root_url }}/{{ site.category_dir }}{{ category | first | url_encode }}"
        class="sidebar-nav-item pl-3rem">
                           <!-- <span class="name">
                               {{ category | first }}

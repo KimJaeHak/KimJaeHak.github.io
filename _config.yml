@@ -246,7 +246,7 @@ tag_archive:
   type: liquid
   path: /tags/
 
-category_dir: category/
+category_dir: categories/
 tag_dir: tag/
 # https://github.com/jekyll/jekyll-archives
 # jekyll-archives:
