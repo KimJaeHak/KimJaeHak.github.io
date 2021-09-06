@@ -6,7 +6,6 @@ tags:
  - React
 toc: true
 toc_sticky: true
-published: false
 ---
 
 ## 클래스 스타일과 함수 스타일 비교
