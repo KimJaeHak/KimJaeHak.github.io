@@ -8,6 +8,7 @@ tags:
  - C#
  - Parallel
  - Concurrency
+published: false
 ---
 
 # PLINQ 에서 Partitioning 의 종류
