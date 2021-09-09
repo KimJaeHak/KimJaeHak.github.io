@@ -4,6 +4,7 @@ categories:
  - React
 tags:
  - React
+ - Redux
 toc: true
 toc_sticky: true
 ---

@@ -4,6 +4,8 @@ categories:
  - React
 tags:
  - React
+ - React function style
+ - React class style
 toc: true
 toc_sticky: true
 ---
