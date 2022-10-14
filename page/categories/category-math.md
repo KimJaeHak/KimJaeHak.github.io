@@ -1,5 +1,5 @@
 ---
-title: "C# 프로그래밍"
+title: "Mathmatics"
 layout: archive
 permalink: /categories/Math
 author_profile: true

@@ -9,13 +9,12 @@ tags:
 ## File Open TextFile
 
 - 텍스트 파일을 읽어서 전체 Line을 메모리 상에 올림
-```python
+```py
 #-*- encoding: utf8 -*-
 import os as os
 path = os.path.join(r"fullPath")
 file = open(path)
 lines = file.readlines()
-
 ```
 
 
