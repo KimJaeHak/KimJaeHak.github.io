@@ -8,11 +8,6 @@ tags:
  - XAML
 toc: true
 ---
-- [Xaml 에서 Object 생성](#xaml-에서-object-생성)
-  - [Elements and Attributes](#elements-and-attributes)
-  - [Set Property 와 Content Syntax](#set-property-와-content-syntax)
-  - [Collection Syntax](#collection-syntax)
-  - [User Control](#user-control)
 
 # Xaml 에서 Object 생성
 ## Elements and Attributes
@@ -64,13 +59,22 @@ public abstract class Panel : FrameworkElement
 ```
 
 ```xml
+<!--Property Element 사용-->
 <StackPanel>
   <StackPanel.Children>
     <TextBlock/>
     <Button/>
   </StackPanel.Children>
 </StackPanel>
+
+<!--Property Element 사용하지 않음(간결)-->
+<StackPanel>
+    <TextBlock/>
+    <Button/>
+</StackPanel>
 ```
+
+> **위의 두가지 경우 모두 같은 결과를 보여줌**
 
 ## User Control
 - 간단한 User Control 예제
