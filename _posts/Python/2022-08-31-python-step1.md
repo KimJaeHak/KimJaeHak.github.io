@@ -4,6 +4,8 @@ categories:
  - python
 tags:
  - Python, Python기초
+
+toc: true
 ---
 
 ## File Open TextFile

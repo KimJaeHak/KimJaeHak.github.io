@@ -1,0 +1,7 @@
+자주사용 하는 Syntax(구문)
+
+=> 이미지 삽입 HTML 
+
+<p align="center">
+<img src="" onclick="window.open(this.src)" width="80%">
+</p>
