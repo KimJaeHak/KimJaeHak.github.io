@@ -207,7 +207,7 @@ public abstract class Panel : FrameworkElement
 - 화면을 디자인 하다 보면 Control끼리 바인딩을 하게 되는데
 - 간단하게 ListView와 TextBox 간 Binding 예제를 보자
 
-```cs
+```xml
 <ListView x:Name="customerListView" Grid.Row="1" Margin="10 0 10 10">
   <ListViewItem>Julia</ListViewItem>
   <ListViewItem>Alex</ListViewItem>
@@ -240,8 +240,7 @@ Binding ElementName으로 설정 하는 방법이다.
 - 아래의 코드를 보면 TextBock의 Text가 Binding을 사용하고 있다.
 - TextBlock은 바로위 부모의 DataContext를 찾고, 없으면 부모의 부모 또 없으면 계속 해서 부모로 올라간다.
 
-```cs
-
+```xml
 // Level_2가 Text에 출력된다.
   <Grid DataContext="level_1">
     <StackPanel DataContext="level_2">
@@ -257,6 +256,5 @@ Binding ElementName으로 설정 하는 방법이다.
       <TextBlock Text="{Binding}"></TextBlock>
     </StackPanel>
   </Grid>
-
 ```
 
