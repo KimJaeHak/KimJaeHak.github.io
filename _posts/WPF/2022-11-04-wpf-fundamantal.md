@@ -201,3 +201,62 @@ public abstract class Panel : FrameworkElement
 
 ```
 
+# Data Binding
+## Binding Another Element(다른 요소와 바인딩)
+
+- 화면을 디자인 하다 보면 Control끼리 바인딩을 하게 되는데
+- 간단하게 ListView와 TextBox 간 Binding 예제를 보자
+
+```cs
+<ListView x:Name="customerListView" Grid.Row="1" Margin="10 0 10 10">
+  <ListViewItem>Julia</ListViewItem>
+  <ListViewItem>Alex</ListViewItem>
+  <ListViewItem>Thomas</ListViewItem>
+</ListView>
+
+<TextBox
+  Text="{Binding ElementName=customerListView, Path=SelectedItem.Content,
+    Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+```
+
+- Binding 내부에 속성을 설정할 때  " " 를 사용하지 않는다.
+- 속성간 구분은 쉼표 , 로 한다.
+
+> Binding Source? 를 설정 하는 방법은 아래 그림과 같은데
+
+<p align="center">
+<img src="/assets/images/auto/2022-11-08-00-27-21.png" onclick="window.open(this.src)" width="80%">
+</p>
+
+1. ElementName : 바로 위의 코드 처럼 Source Element에서 x:Name을 설정한 후 Target Element에서  
+Binding ElementName으로 설정 하는 방법이다.
+2. Source 는 StaticResource를 설정해 놓고 사용하는 방법이다.
+3. RelativeSource는 상대적인 Element위치를 가지고 설정
+4. 가장 중요한 DataContext를 활용한 방법이다.
+
+## DataContext 의 동작
+
+- 기본적으로 모든 Element는 DataContext를 설정 할 수 있다.
+- 아래의 코드를 보면 TextBock의 Text가 Binding을 사용하고 있다.
+- TextBlock은 바로위 부모의 DataContext를 찾고, 없으면 부모의 부모 또 없으면 계속 해서 부모로 올라간다.
+
+```cs
+
+// Level_2가 Text에 출력된다.
+  <Grid DataContext="level_1">
+    <StackPanel DataContext="level_2">
+      <TextBlock Text="{Binding}"></TextBlock>
+    </StackPanel>
+  </Grid>
+
+// 바로 위 부모의 DataContext가 없다면 부모를 계속 해서 찾아 올라간다.
+//DataContext를 찾을 때 까지
+//Level_1 이 Text에 출력된다.
+<Grid DataContext="level_1">
+    <StackPanel>
+      <TextBlock Text="{Binding}"></TextBlock>
+    </StackPanel>
+  </Grid>
+
+```
+
