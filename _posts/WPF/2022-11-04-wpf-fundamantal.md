@@ -95,8 +95,6 @@ public abstract class Panel : FrameworkElement
       <Image Source="/Images/logo.png" Width="100" Margin="5"/>
       <TextBlock Text="Customers App" FontSize="30" 
                  Foreground="White" VerticalAlignment="Center"/>
-      <TextBlock Text="Version 1.0" FontSize="16"
-                 Foreground="#333333" VerticalAlignment="Bottom" Margin="10 0 0 22"/>
     </StackPanel>
   </Grid>
 </UserControl>
@@ -117,7 +115,6 @@ public abstract class Panel : FrameworkElement
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="Auto"/>
       <ColumnDefinition/>
-      <ColumnDefinition Width="Auto"/>
     </Grid.ColumnDefinitions>
 
     <!-- Customer list -->
@@ -128,33 +125,16 @@ public abstract class Panel : FrameworkElement
         <RowDefinition/>
       </Grid.RowDefinitions>
       <StackPanel Orientation="Horizontal">
-        <Button Margin="10" Width="75">
-          <StackPanel Orientation="Horizontal">
-            <Image Source="/Images/add.png" Height="18" Margin="0 0 5 0"/>
-            <TextBlock Text="Add"/>
-          </StackPanel>
-        </Button>
-        <Button Content="Delete" Width="75" Margin="0 10 10 10" />
         <Button Margin="0 10 10 10" Click="ButtonMoveNavigation_Click">
           <Image Source="/Images/move.png" Height="18"/>
         </Button>
       </StackPanel>
-      <ListView Grid.Row="1" Margin="10 0 10 10">
-        <ListViewItem>Julia</ListViewItem>
-        <ListViewItem>Alex</ListViewItem>
-        <ListViewItem>Thomas</ListViewItem>
-      </ListView>
     </Grid>
 
     <!-- Customer detail -->
     <StackPanel Grid.Column="1" Margin="10">
       <Label>Firstname:</Label>
       <TextBox/>
-      <Label>Lastname:</Label>
-      <TextBox/>
-      <CheckBox Margin="0 10 0 0">
-        Is developer
-      </CheckBox>
     </StackPanel>
   </Grid>
 </UserControl>
@@ -178,27 +158,12 @@ public abstract class Panel : FrameworkElement
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
-      <RowDefinition/>
-      <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
-    <Menu FontSize="20">
-      <MenuItem Header="_View">
-        <MenuItem Header="_Customers"/>
-        <MenuItem Header="_Products"/>
-      </MenuItem>
-    </Menu>
-
     <controls:HeaderControl Grid.Row="1"/>
-
     <view:CustomersView Grid.Row="2"/>
-
-    <StatusBar Grid.Row="3">
-      <StatusBarItem FontSize="20" Content=" (c) Wired Brain Coffee"/>
-    </StatusBar>
   </Grid>
 </Window>
-
 ```
 
 # Data Binding
@@ -235,11 +200,6 @@ Binding ElementName으로 설정 하는 방법이다.
 4. 가장 중요한 DataContext를 활용한 방법이다.
 
 ## DataContext 의 동작
-
-- 기본적으로 모든 Element는 DataContext를 설정 할 수 있다.
-- 아래의 코드를 보면 TextBock의 Text가 Binding을 사용하고 있다.
-- TextBlock은 바로위 부모의 DataContext를 찾고, 없으면 부모의 부모 또 없으면 계속 해서 부모로 올라간다.
-
 ```xml
 // Level_2가 Text에 출력된다.
   <Grid DataContext="level_1">
@@ -251,10 +211,133 @@ Binding ElementName으로 설정 하는 방법이다.
 // 바로 위 부모의 DataContext가 없다면 부모를 계속 해서 찾아 올라간다.
 //DataContext를 찾을 때 까지
 //Level_1 이 Text에 출력된다.
-<Grid DataContext="level_1">
+  <Grid DataContext="level_1">
     <StackPanel>
       <TextBlock Text="{Binding}"></TextBlock>
     </StackPanel>
   </Grid>
 ```
+- 기본적으로 모든 Element는 DataContext를 설정 할 수 있다.
+- 위 코드를 보면 TextBock의 Text가 Binding을 사용하고 있다.
+- TextBlock은 바로위 부모의 DataContext를 찾고, 없으면 부모의 부모 또 없으면 계속 해서 부모로 올라간다.
 
+
+## DataContext에 ViewModel 를 통한 Binding
+### Simple Example
+> 첫번째로 Model Data를 정의 한다.
+
+```cs
+public class Customer
+{
+  public int Id { get; set; }
+  public string? FirstName { get; set; }
+  public string? LastName { get; set; }
+  public bool IsDeveloper { get; set; }
+}
+```
+<br>
+> ViewModelBase를 정의한다. PropertyChange에 대한 구현은 공통으로 쓰이기 때문에  
+> INotifyChange를 상속받은 ViewModelBase를 만든다.
+
+```cs
+public class ViewModelBase : INotifyPropertyChanged
+{
+  public event PropertyChangedEventHandler? PropertyChanged;
+
+  protected virtual void RaisePropertyChanged([CallerMemberName] string? propertyName = null)
+  {
+    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+  }
+}
+```
+<br>
+> Customer를 Wrapping할  CustomerItemViewModel 만든다.
+
+```cs
+  public class CustomerItemViewModel : ViewModelBase
+  {
+    private readonly Customer _model;
+
+    public CustomerItemViewModel(Customer model)
+    {
+      _model = model;
+    }
+
+    public int Id => _model.Id;
+
+    public string? FirstName
+    {
+      get => _model.FirstName;
+      set
+      {
+        _model.FirstName = value;
+        RaisePropertyChanged();
+      }
+    }
+
+    public string? LastName
+    {
+      get => _model.LastName;
+      set
+      {
+        _model.LastName = value;
+        RaisePropertyChanged();
+      }
+    }
+
+    public bool IsDeveloper
+    {
+      get => _model.IsDeveloper;
+      set
+      {
+        _model.IsDeveloper = value;
+        RaisePropertyChanged();
+      }
+    }
+  }
+```
+<br>
+>View의 DataContext에 연결할 CustomersViewModel을 만든다.
+
+```cs
+//Customer ViewModel
+  public class CustomersViewModel : ViewModelBase
+  {
+    public CustomersViewModel()
+    {
+       // Customers 데이터를 업데이트 하는 코드가 필요~~
+    }
+
+    public ObservableCollection<CustomerItemViewModel> Customers { get; } = new();
+  }
+```
+<br>
+> 여기까지 왔다면 ViewModel은 완성이 되었고, View에 Binding 해보자.
+
+**CustomersView.xaml.cs**
+```cs
+  public partial class CustomersView : UserControl
+  {
+    private CustomersViewModel _viewModel;
+
+    public CustomersView()
+    {
+      InitializeComponent();
+      _viewModel = new CustomersViewModel();
+      DataContext = _viewModel;
+    }
+  }
+```
+
+**View.xaml**
+
+```xml
+      <ListView x:Name="customerListView"
+                ItemsSource="{Binding Customers}"
+                DisplayMemberPath="FirstName"
+                Grid.Row="1" Margin="10 0 10 10"/>
+
+      <TextBox Text="{Binding ElementName=customerListView, 
+                      Path=SelectedItem.FirstName,
+                      Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+```
