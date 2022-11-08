@@ -236,8 +236,8 @@ public class Customer
 }
 ```
 <br>
-> ViewModelBase를 정의한다. PropertyChange에 대한 구현은 공통으로 쓰이기 때문에  
-> INotifyChange를 상속받은 ViewModelBase를 만든다.
+> ViewModelBase를 정의한다. 
+> PropertyChange에 대한 구현은 공통으로 사용, INotifyChange를 상속받은 ViewModelBase를 만든다.
 
 ```cs
 public class ViewModelBase : INotifyPropertyChanged
