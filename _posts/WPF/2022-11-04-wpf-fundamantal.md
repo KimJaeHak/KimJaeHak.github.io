@@ -341,3 +341,89 @@ public class ViewModelBase : INotifyPropertyChanged
                       Path=SelectedItem.FirstName,
                       Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 ```
+## IValueConverter 를 이용한 Data Convert
+- ViewModel을 Binding 할 때 논리적인 값을 View에 속성 값으로 변경해 주어야 하는 경우가 발생 한다.
+- 이 떄 IValueConverter를 이용 하면 ViewModel의 속성을 View에 속성 타입으로 변경해 줄 수 있다.
+
+### IValueConverter Simple Example
+> View Model 정의
+
+```cs
+
+public class ViewModelConv : ViewModelBase
+{
+    private int _checked = 0;
+    public int Checked
+    {
+        get => _checked;
+        set
+        {
+            _checked = value;
+            RaisePropertyChanged(nameof(Checked));
+        }
+    }
+}
+
+public class ViewModelBase : INotifyPropertyChanged
+{
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected virtual void RaisePropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+}
+```
+
+> ValueConverter 정의
+
+```cs
+    public class ValueConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var inputValue = value == null ? 0 : (int)value;
+            return inputValue %2 == 0;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            //TODO Only TwoWay
+            throw new NotImplementedException();
+        }
+    }
+```
+
+> View에서 Converter 설정
+
+```xml
+<Window x:Class="WpfConverter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfConverter"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <local:ValueConverter x:Key="ValueConv" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+            <CheckBox IsChecked="{Binding Checked, Converter={StaticResource ValueConv}}"></CheckBox>
+            <Button Width="100" Click="ButtonBase_OnClick"></Button>
+        </StackPanel>
+    </Grid>
+</Window>
+```
+
+- 위 코드는 button Click 이벤트가 없지만 실제 Button_Click 이벤트 에서는  
+값을 +1 해주고 있다.
+- ValueConter에서 짝수인 경우에 True, 홀수인 경우에 False를 반환해 주고
+- CheckBox에 IsChecked에 맵핑 시켜준다.
+- 예제를 위한 어거지 변환 이라고 생각하지만 그냥 보자 ㅎㅎ
