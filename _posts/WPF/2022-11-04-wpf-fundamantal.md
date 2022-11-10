@@ -77,7 +77,7 @@ public abstract class Panel : FrameworkElement
 > **위의 두가지 경우 모두 같은 결과를 보여줌**
 
 ## User Control
-- 간단한 User Control 예제
+- [Simple Example] User Control
 
 > HeaderControl.xaml  
 
@@ -172,6 +172,8 @@ public abstract class Panel : FrameworkElement
 - 화면을 디자인 하다 보면 Control끼리 바인딩을 하게 되는데
 - 간단하게 ListView와 TextBox 간 Binding 예제를 보자
 
+### [Simple Example] Binding Another Element
+
 ```xml
 <ListView x:Name="customerListView" Grid.Row="1" Margin="10 0 10 10">
   <ListViewItem>Julia</ListViewItem>
@@ -223,7 +225,7 @@ Binding ElementName으로 설정 하는 방법이다.
 
 
 ## DataContext에 ViewModel 를 통한 Binding
-### Simple Example
+### [Simple Example] ViewModel Binding
 > 첫번째로 Model Data를 정의 한다.
 
 ```cs
@@ -236,8 +238,8 @@ public class Customer
 }
 ```
 <br>
-> ViewModelBase를 정의한다. 
-> PropertyChange에 대한 구현은 공통으로 사용, INotifyChange를 상속받은 ViewModelBase를 만든다.
+> ViewModelBase를 정의한다.  
+> PropertyChange에 대한 구현은 공통으로 사용, INotifyChange를 상속받은 ViewModelBase를 만든다.  
 
 ```cs
 public class ViewModelBase : INotifyPropertyChanged
@@ -345,7 +347,7 @@ public class ViewModelBase : INotifyPropertyChanged
 - ViewModel을 Binding 할 때 논리적인 값을 View에 속성 값으로 변경해 주어야 하는 경우가 발생 한다.
 - 이 떄 IValueConverter를 이용 하면 ViewModel의 속성을 View에 속성 타입으로 변경해 줄 수 있다.
 
-### IValueConverter Simple Example
+### [Simple Example] IValueConverter
 > View Model 정의
 
 ```cs
@@ -427,3 +429,114 @@ public class ViewModelBase : INotifyPropertyChanged
 - ValueConter에서 짝수인 경우에 True, 홀수인 경우에 False를 반환해 주고
 - CheckBox에 IsChecked에 맵핑 시켜준다.
 - 예제를 위한 어거지 변환 이라고 생각하지만 그냥 보자 ㅎㅎ
+
+# Command 를 통한 코드(이벤트) 실행
+## Command의 이해
+
+> Command 의 구조
+<p align="center">
+<img src="/assets/images/auto/2022-11-10-11-08-08.png" onclick="window.open(this.src)" width="80%">
+</p>
+
+### [Simple Example] Command의 활용
+> <p style="color:red">Before Code</p>
+
+- **MainWindow.xaml**
+
+```xml
+<Window x:Class="WpfCommand.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfCommand"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Button Width="200" Height="100" Click="ButtonBase_OnClick">Click</Button>
+    </Grid>
+</Window>
+```
+
+- **MainWindow.xaml.cs**
+
+```cs
+public partial class MainWindow
+{
+    public MainWindow()
+    {
+        InitializeComponent();
+    }
+
+    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+    {
+        MessageBox.Show("Hello World");
+    }
+}
+```
+- 위의 예제를 보면 Button Click 이벤트를 통해서 코드 비하인드 파일에 직접 코딩을 했다.
+- View와 이벤트가 겹합도가 높다.
+
+> <p style="color:red">After Code(with Command)</p>
+
+```cs
+
+//ViewModel
+public class ButtonViewModel
+{
+    public DelegateCommand ShowMsgBoxCommand { get; }
+
+    public ButtonViewModel()
+    {
+        ShowMsgBoxCommand = new DelegateCommand(OnButtomClick);
+    }
+    private void OnButtomClick(object obj)
+    {
+        MessageBox.Show("Hello World");
+    }
+}
+
+//Delegate Command
+public class DelegateCommand : ICommand
+{
+    private readonly Action<object> _execute;
+    private readonly Func<object, bool> _canExecute;
+
+    public event EventHandler CanExecuteChanged;
+    public void Execute(object parameter) => _execute(parameter);
+    public bool CanExecute(object parameter) => _canExecute is null || _canExecute(parameter);
+
+    public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+    public DelegateCommand(Action<object> execute, Func<object,bool> canExecute = null)
+    {
+        if (execute == null)
+            throw new ArgumentException();
+        
+        _execute = execute;
+        _canExecute = canExecute;
+    }
+    
+}
+```
+
+```xml
+<!-->MainWindow.xaml<-->
+<Window x:Class="WpfCommand.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfCommand"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Button x:Name="Btn" Width="200" Height="100" 
+                Command="{Binding ShowMsgBoxCommand}" 
+                CommandParameter="{Binding ElementName=Btn}"
+                Content="Click"
+                >
+        </Button>
+        
+    </Grid>
+</Window>
+```

@@ -5,3 +5,6 @@
 <p align="center">
 <img src="" onclick="window.open(this.src)" width="80%">
 </p>
+
+=> 글자 색
+<p style="color:red">This is a paragraph.</p>
