@@ -734,3 +734,220 @@ public class ViewModelBase : INotifyPropertyChanged
 - Binding된 Item개체는 Person이라는 것을 알 수 있습니다.
 - DataTemplate Element에 TextBlock, Button을 정의 하고 Binding 합니다.
 - ListView ItemTemplate에 정의된 Resource를 할당 합니다.
+
+>Resource를 사용하지 않고 ItemsControl인 ListView의 내부 속성에 직접 등록 하는 방법도 있습니다.
+
+```xml
+<Grid>
+    <ListView ItemsSource="{Binding Customers}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                    <Button Content="{Binding Age}" Width="100" Margin="10 0" />
+                </StackPanel>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</Grid>
+```
+
+
+
+## Implicit DataTemplate (암시적인 DataTemplate)
+- Binding된 특정 타입에 따라서 DataTemplate이 선택적으로 동작 할 수 없을까?
+- DataTemplate의 DataType 속성으로 이것을 구현 할 수있다.
+- 아래의 예제를 구현해 보자.
+<p align="center">
+<img src="/assets/images/auto/2022-11-12-13-28-07.png" onclick="window.open(this.src)" width="80%">
+</p>
+
+### [Simple Example] Implicit DataTemplate
+
+> **MainWindow.xaml**
+
+```xml
+<Window x:Class="WpfDataTemplate.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfDataTemplate"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:view = "clr-namespace:WpfDataTemplate.View"
+        xmlns:viewModel = "clr-namespace:WpfDataTemplate.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type viewModel:ButtonViewModel}">
+                <view:ButtonView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:TextBlockViewModel}">
+                <view:TextBlockView />
+            </DataTemplate>
+        </Grid.Resources>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="7*" />
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Width="100" Height="50" 
+                    Margin="0 0 30 0"
+                    Content="Button 1"
+                    Command="{Binding ChangeViewModelCommand}">
+                <Button.CommandParameter>
+                    <system:Int32>0</system:Int32>
+                </Button.CommandParameter>
+            </Button>
+            <Button Width="100" Height="50"
+                    Content="Button 2"
+                    Command="{Binding ChangeViewModelCommand}">
+                <Button.CommandParameter>
+                    <system:Int32>1</system:Int32>
+                </Button.CommandParameter>
+            </Button>
+        </StackPanel>
+        
+        <ContentControl Content="{Binding SelectedViewModel}" Grid.Row="1"/>
+    </Grid>
+</Window>
+```
+
+- ContentControl의 Content에 SelectedViewModel의 객체가 Binding 되어 있다.
+- Grid.Resource에 Implict(암시적) DateTemplate 변환이 적용 되어 있다.
+- ViewModel의 Type에 따라서 자동으로 해당 View로 Rendering된다.
+
+> **Other Views**
+
+```xml
+
+<!--> ButtonView.xaml <-->
+<UserControl x:Class="WpfDataTemplate.View.ButtonView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:WpfDataTemplate.View"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <StackPanel>
+            <Button Height="70" Content="{Binding NameToButton1}" />
+            <Button Height="70" Content="{Binding NameToButton2}" Margin="0 30" />
+        </StackPanel>
+    </Grid>
+</UserControl>
+
+
+<!--> TextBlockView.xaml <-->
+<UserControl x:Class="WpfDataTemplate.View.TextBlockView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:WpfDataTemplate.View"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid>
+            <StackPanel>
+                <TextBlock Height="70" Text="{Binding NameToTextBlock1}" />
+                <TextBlock Height="70" Text="{Binding NameToTextBlock2}" Margin="0 30" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
+```
+
+> ViewModel 코드
+
+```cs
+public class ButtonViewModel : ViewModelBase
+{
+    private string _nameToButton1 = "Name To Button1";
+    private string _nameToButton2 = "Name To Button2";
+
+    public string NameToButton1
+    {
+        get => _nameToButton1;
+        set
+        {
+            _nameToButton1 = value; 
+            RaisePropertyChanged();
+        }
+    }
+    public string NameToButton2
+    {
+        get => _nameToButton2;
+        set
+        {
+            _nameToButton2 = value; 
+            RaisePropertyChanged();
+        }
+    }
+}
+
+public class TextBlockViewModel : ViewModelBase
+{
+    private string _nameToTextBlock1 = "Name To TextBlock1";
+    private string _nameToTextBlock2 = "Name To TextBlock1";
+
+    public string NameToTextBlock1
+    {
+        get => _nameToTextBlock1;
+        set
+        {
+            _nameToTextBlock1 = value;
+            RaisePropertyChanged();
+        }
+    }
+    public string NameToTextBlock2
+    {
+        get => _nameToTextBlock2;
+        set
+        {
+            _nameToTextBlock2 = value; 
+            RaisePropertyChanged();
+        }
+    }
+}
+
+public class MainViewModel : ViewModelBase
+{
+    private ViewModelBase _selectedViewModel;
+    private ButtonViewModel _buttonViewModel;
+    private TextBlockViewModel _textBlockViewModel;
+
+    //Properties
+    public DelegateCommand ChangeViewModelCommand { get; }
+    public ViewModelBase SelectedViewModel
+    {
+        get => _selectedViewModel;
+        set
+        
+        {
+            _selectedViewModel = value;
+            RaisePropertyChanged();
+        }
+    }
+    //Constructor
+    public MainViewModel()
+    {
+        ChangeViewModelCommand = new DelegateCommand(ChangeViewModel);
+        _buttonViewModel = new ButtonViewModel();
+        _textBlockViewModel = new TextBlockViewModel();
+        SelectedViewModel = _textBlockViewModel;
+    }
+
+    //Method
+    private void ChangeViewModel(object obj)
+    {
+        var number = obj is int ? (int)obj : 0;
+        SelectedViewModel = number == 0 ? (ViewModelBase)_buttonViewModel :_textBlockViewModel;
+    }
+}
+
+```
