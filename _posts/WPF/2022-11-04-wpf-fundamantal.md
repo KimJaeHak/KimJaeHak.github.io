@@ -951,3 +951,90 @@ public class MainViewModel : ViewModelBase
 }
 
 ```
+
+# Dependency Injection
+## Microsoft.Extensions.DependencyInjection
+- Microsoft.Extensions.DependencyInjection Nuget Package 설치 
+- App.Xaml StartupUri 속성 제거
+- Class 내부 생성 로직을 모두 Parameter로 입력 받도록 수정.
+- App.Xaml.cs 에서 Dependency Injection 서비스 등록 및 실행
+
+### [Simple Example] Dependency Injection
+
+```xml
+
+<!--> StartupUri="MainWindow.xaml" 속성 삭제<-->
+
+<!--> App.xaml <-->
+<Application x:Class="WpfDataTemplate.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WpfDataTemplate">
+</Application>
+```
+
+```cs
+//App.xaml.cs
+using System;
+using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
+using WpfDataTemplate.ViewModel;
+
+namespace WpfDataTemplate
+{
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
+    public partial class App
+    {
+        private readonly IServiceProvider _serviceProvider;
+
+        public App()
+        {
+            ServiceCollection services = new ServiceCollection();
+            ConfigureServices(services);
+            _serviceProvider = services.BuildServiceProvider();
+        }
+        private void ConfigureServices(ServiceCollection services)
+        {
+            services.AddTransient<MainWindow>();
+            services.AddTransient<ButtonViewModel>();
+            services.AddTransient<TextBlockViewModel>();
+            services.AddTransient<MainViewModel>();
+            
+        }
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            var mainWindow = _serviceProvider.GetService<MainWindow>();
+            mainWindow?.Show();
+        }
+    }
+}
+
+//내부 생성 로직을 생성자 파라미터로 받도록 함.
+//MainWindow.xaml.cs
+public partial class MainWindow
+{
+    private MainViewModel _mainViewModel; 
+    public MainWindow(MainViewModel mainViewModel)
+    {
+        InitializeComponent();
+        _mainViewModel = mainViewModel;
+        DataContext = _mainViewModel;
+    }
+}
+
+
+//내부에서 생성하던 ViewModel들을 생성자 파라미터로 받도록 정의
+//MainViewModel.cs
+public MainViewModel(ButtonViewModel buttonViewModel, TextBlockViewModel textBlockViewModel)
+{
+    ChangeViewModelCommand = new DelegateCommand(ChangeViewModel);
+    _buttonViewModel = buttonViewModel;
+    _textBlockViewModel = textBlockViewModel;
+    SelectedViewModel = _textBlockViewModel;
+}
+...
+
+```
