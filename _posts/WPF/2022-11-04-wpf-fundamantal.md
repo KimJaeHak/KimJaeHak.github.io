@@ -1038,3 +1038,57 @@ public MainViewModel(ButtonViewModel buttonViewModel, TextBlockViewModel textBlo
 ...
 
 ```
+<br>
+# Styling Application
+## Style Property 정의 및 사용
+### [Simple Example] Style Property사용
+
+```xml
+<Grid>
+    <Grid.Resources>
+        <Style TargetType="Button" x:Key="buttonStyle">
+            <Setter Property="Background" Value="Brown"></Setter>
+            <Setter Property="Foreground" Value="Chartreuse"></Setter>
+        </Style>
+    </Grid.Resources>
+    <StackPanel>
+        <Button Height="70" Content="{Binding NameToButton1}"
+                Style="{StaticResource buttonStyle}"/>
+        <Button Height="70" Content="{Binding NameToButton2}" Margin="0 30" 
+                Style="{StaticResource buttonStyle}"/>
+    </StackPanel>
+</Grid>
+```
+
+- Resource에서 Style Property를 정의 하지 않는다면 어떻게 될까?
+- Button 마다 Background/Foreground Property Element를 정의 해 줘야 한다.
+- 만약 Button 개수가 더 많이 늘어 난다면, 추가해야 하는 코드는 더 늘어 날 것이다.
+- 하지만 위 코드 예제를 활용하면 간단하게 모든 Button에 Style을 적용 할 수 있다.
+
+## Inherit Style (스타일 상속)
+
+```xml
+<Grid.Resources>
+    <Style TargetType="Button" x:Key="buttonStyleBase">
+        <Setter Property="Background" Value="Brown"></Setter>
+        <Setter Property="Foreground" Value="Chartreuse"></Setter>
+    </Style>
+    <Style TargetType="Button" x:Key="buttonStyle" 
+            BasedOn="{StaticResource buttonStyleBase}">
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+    </Style>
+</Grid.Resources>
+<StackPanel>
+    <Button Height="70" Content="{Binding NameToButton1}"
+            Style="{StaticResource buttonStyle}"/>
+    <Button Height="70" Content="{Binding NameToButton2}" Margin="0 30" 
+            Style="{StaticResource buttonStyle}"/>
+</StackPanel>
+</Grid>
+```
+
+- buttonStyleBase 에서 Background/Foreground를 정의 한다.
+- buttonStyle 에서 buttonStyleBase 를 BaseOn 속성에서 정의 하여 상속 받는다.
+- buttonStyle 에서 추가적인 속성인 Font 속성을 정의 한다.
+- 우리가 Class 에서 상속받는 개념과 동일한 개념이다.
+
