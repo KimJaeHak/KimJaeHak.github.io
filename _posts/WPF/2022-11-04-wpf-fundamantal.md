@@ -166,6 +166,7 @@ public abstract class Panel : FrameworkElement
 </Window>
 ```
 
+<br>
 # Data Binding
 ## Binding Another Element(다른 요소와 바인딩)
 
@@ -429,6 +430,7 @@ public class ViewModelBase : INotifyPropertyChanged
 - ValueConter에서 짝수인 경우에 True, 홀수인 경우에 False를 반환해 주고
 - CheckBox에 IsChecked에 맵핑 시켜준다.
 - 예제를 위한 어거지 변환 이라고 생각하지만 그냥 보자 ㅎㅎ  
+
 <br>
 # Command 를 통한 코드(이벤트) 실행
 ## Command의 이해
@@ -540,6 +542,7 @@ public class DelegateCommand : ICommand
     </Grid>
 </Window>
 ```
+
 <br>
 # 재사용 가능한 Resources 
 ## Xaml Resource
@@ -632,6 +635,7 @@ public class DelegateCommand : ICommand
     </Application.Resources>
 </Application>
 ```
+
 <br>
 # Data Templates 활용
 ## ContentControl의 Rendering 동작
@@ -951,6 +955,7 @@ public class MainViewModel : ViewModelBase
 }
 
 ```
+
 <br>
 # Dependency Injection
 ## Microsoft.Extensions.DependencyInjection
@@ -1038,6 +1043,7 @@ public MainViewModel(ButtonViewModel buttonViewModel, TextBlockViewModel textBlo
 ...
 
 ```
+
 <br>
 # Styling Application
 ## 기본 CheckBox ControlTemplate 예제
@@ -1090,7 +1096,8 @@ public MainViewModel(ButtonViewModel buttonViewModel, TextBlockViewModel textBlo
 - buttonStyleBase 에서 Background/Foreground를 정의 한다.
 - buttonStyle 에서 buttonStyleBase 를 BaseOn 속성에서 정의 하여 상속 받는다.
 - buttonStyle 에서 추가적인 속성인 Font 속성을 정의 한다.
-- 우리가 Class 에서 상속받는 개념과 동일한 개념이다.
+- 우리가 Class 에서 상속받는 개념과 동일한 개념이다.  
+
 <br>
 # Control Template 익히기
 ## Button Control Template
