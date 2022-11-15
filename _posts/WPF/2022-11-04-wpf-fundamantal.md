@@ -9,6 +9,46 @@ tags:
 toc: true
 ---
 
+- [Xaml 에서 Object 생성](#xaml-에서-object-생성)
+  - [Elements and Attributes](#elements-and-attributes)
+  - [Set Property 와 Content Syntax](#set-property-와-content-syntax)
+  - [Collection Syntax](#collection-syntax)
+  - [User Control](#user-control)
+- [Data Binding](#data-binding)
+  - [Binding Another Element(다른 요소와 바인딩)](#binding-another-element다른-요소와-바인딩)
+    - [[Simple Example] Binding Another Element](#simple-example-binding-another-element)
+  - [DataContext 의 동작](#datacontext-의-동작)
+  - [DataContext에 ViewModel 를 통한 Binding](#datacontext에-viewmodel-를-통한-binding)
+    - [[Simple Example] ViewModel Binding](#simple-example-viewmodel-binding)
+  - [IValueConverter 를 이용한 Data Convert](#ivalueconverter-를-이용한-data-convert)
+    - [[Simple Example] IValueConverter](#simple-example-ivalueconverter)
+- [Command 를 통한 코드(이벤트) 실행](#command-를-통한-코드이벤트-실행)
+  - [Command의 이해](#command의-이해)
+    - [[Simple Example] Command의 활용](#simple-example-command의-활용)
+- [재사용 가능한 Resources](#재사용-가능한-resources)
+  - [Xaml Resource](#xaml-resource)
+  - [Resource Dictionary](#resource-dictionary)
+    - [[Simple Example] Resource Dictionary](#simple-example-resource-dictionary)
+- [Data Templates 활용](#data-templates-활용)
+  - [ContentControl의 Rendering 동작](#contentcontrol의-rendering-동작)
+    - [[Simple Example] DataTemplate](#simple-example-datatemplate)
+  - [Implicit DataTemplate (암시적인 DataTemplate)](#implicit-datatemplate-암시적인-datatemplate)
+    - [[Simple Example] Implicit DataTemplate](#simple-example-implicit-datatemplate)
+- [Dependency Injection](#dependency-injection)
+  - [Microsoft.Extensions.DependencyInjection](#microsoftextensionsdependencyinjection)
+    - [[Simple Example] Dependency Injection](#simple-example-dependency-injection)
+- [Styling Application](#styling-application)
+  - [기본 CheckBox ControlTemplate 예제](#기본-checkbox-controltemplate-예제)
+    - [[Simple Example] CheckBox Style Property](#simple-example-checkbox-style-property)
+  - [Inherit Style (스타일 상속)](#inherit-style-스타일-상속)
+- [Control Template 익히기](#control-template-익히기)
+  - [Button Control Template](#button-control-template)
+    - [[Simple Example] Button ControlTemplate](#simple-example-button-controltemplate)
+  - [Style - ControlTemplate 셋팅하기](#style---controltemplate-셋팅하기)
+    - [[Simple Example] Style - ControlTemplate](#simple-example-style---controltemplate)
+  - [기존 CheckBox의 ControlTemplate](#기존-checkbox의-controltemplate)
+    - [[Simple Example] .net Checkbox ControlTemplate](#simple-example-net-checkbox-controltemplate)
+
 # Xaml 에서 Object 생성
 ## Elements and Attributes
 
@@ -1040,8 +1080,8 @@ public MainViewModel(ButtonViewModel buttonViewModel, TextBlockViewModel textBlo
 ```
 <br>
 # Styling Application
-## Style Property 정의 및 사용
-### [Simple Example] Style Property사용
+## 기본 CheckBox ControlTemplate 예제
+### [Simple Example] CheckBox Style Property
 
 ```xml
 <Grid>
@@ -1091,4 +1131,142 @@ public MainViewModel(ButtonViewModel buttonViewModel, TextBlockViewModel textBlo
 - buttonStyle 에서 buttonStyleBase 를 BaseOn 속성에서 정의 하여 상속 받는다.
 - buttonStyle 에서 추가적인 속성인 Font 속성을 정의 한다.
 - 우리가 Class 에서 상속받는 개념과 동일한 개념이다.
+<br>
+# Control Template 익히기
+## Button Control Template
+### [Simple Example] Button ControlTemplate
 
+```xml
+<Button Width="50" Height="50">
+      <Button.Template>
+        <ControlTemplate TargetType="Button">
+          <Ellipse Fill="Orange" x:Name="ellipse"/>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Fill" Value="Green"
+                      TargetName="ellipse"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Button.Template>
+</Button>
+```
+
+## Style - ControlTemplate 셋팅하기
+### [Simple Example] Style - ControlTemplate
+
+```xml
+<Style TargetType="Button">
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="Button">
+            <Ellipse Fill="Orange" x:Name="ellipse"/>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Fill" Value="Green"
+                        TargetName="ellipse"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
+```
+
+## 기존 CheckBox의 ControlTemplate
+### [Simple Example] .net Checkbox ControlTemplate
+
+```xml
+<UserControl.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="OptionMark.Static.Background" Color="#FFFFFFFF"/>
+        <SolidColorBrush x:Key="OptionMark.Static.Border" Color="#FF707070"/>
+        <Style x:Key="OptionMarkFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="14,0,0,0" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="OptionMark.MouseOver.Background" Color="#FFF3F9FF"/>
+        <SolidColorBrush x:Key="OptionMark.MouseOver.Border" Color="#FF5593FF"/>
+        <SolidColorBrush x:Key="OptionMark.MouseOver.Glyph" Color="#FF212121"/>
+        <SolidColorBrush x:Key="OptionMark.Disabled.Background" Color="#FFE6E6E6"/>
+        <SolidColorBrush x:Key="OptionMark.Disabled.Border" Color="#FFBCBCBC"/>
+        <SolidColorBrush x:Key="OptionMark.Disabled.Glyph" Color="#FF707070"/>
+        <SolidColorBrush x:Key="OptionMark.Pressed.Background" Color="#FFD9ECFF"/>
+        <SolidColorBrush x:Key="OptionMark.Pressed.Border" Color="#FF3C77DD"/>
+        <SolidColorBrush x:Key="OptionMark.Pressed.Glyph" Color="#FF212121"/>
+        <SolidColorBrush x:Key="OptionMark.Static.Glyph" Color="#FF212121"/>
+        <Style TargetType="{x:Type CheckBox}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource OptionMark.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource OptionMark.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="checkBoxBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <Grid x:Name="markGrid">
+                                    <Path x:Name="optionMark" Data="F1 M 9.97498,1.22334L 4.6983,9.09834L 4.52164,9.09834L 0,5.19331L 1.27664,3.52165L 4.255,6.08833L 8.33331,1.52588e-005L 9.97498,1.22334 Z " Fill="{StaticResource OptionMark.Static.Glyph}" Margin="1" Opacity="0" Stretch="None"/>
+                                    <Rectangle x:Name="indeterminateMark" Fill="{StaticResource OptionMark.Static.Glyph}" Margin="2" Opacity="0"/>
+                                </Grid>
+                            </Border>
+                            <ContentPresenter x:Name="contentPresenter" Grid.Column="1" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasContent" Value="true">
+                                <Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}"/>
+                                <Setter Property="Padding" Value="4,-1,0,0"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.MouseOver.Border}"/>
+                                <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource OptionMark.MouseOver.Glyph}"/>
+                                <Setter Property="Fill" TargetName="indeterminateMark" Value="{StaticResource OptionMark.MouseOver.Glyph}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.Disabled.Border}"/>
+                                <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource OptionMark.Disabled.Glyph}"/>
+                                <Setter Property="Fill" TargetName="indeterminateMark" Value="{StaticResource OptionMark.Disabled.Glyph}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.Pressed.Border}"/>
+                                <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource OptionMark.Pressed.Glyph}"/>
+                                <Setter Property="Fill" TargetName="indeterminateMark" Value="{StaticResource OptionMark.Pressed.Glyph}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
+                                <Setter Property="Opacity" TargetName="indeterminateMark" Value="0"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="{x:Null}">
+                                <Setter Property="Opacity" TargetName="optionMark" Value="0"/>
+                                <Setter Property="Opacity" TargetName="indeterminateMark" Value="1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+```
+
+- 설명하기 귀찮아서 기본 CheckBox의 ControlTemplate을 가져왔다.
