@@ -1237,3 +1237,219 @@ public MainViewModel(ButtonViewModel buttonViewModel, TextBlockViewModel textBlo
 ```
 
 - 설명하기 귀찮아서 기본 CheckBox의 ControlTemplate을 가져왔다.
+
+<br>
+# Validate 사용자 입력
+## INotifyDataErrorInfo 을 활용한 Validate 기능
+
+> INotifyDataErrorInfo 의 정의를 보자
+
+```cs
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+
+using System.Collections;
+
+namespace System.ComponentModel
+{
+    public interface INotifyDataErrorInfo
+    {
+        bool HasErrors { get; }
+        IEnumerable GetErrors(string? propertyName);
+        event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
+    }
+}
+
+```
+
+- HasErrors : 엔터티에 유효성 검사 오류가 있는지 여부를 나타내는 값을 가져옵니다.
+- GetErrors : 지정된 속성이나 전체 엔터티에 대한 유효성 검사 오류를 가져옵니다.
+- ErrorsChanged : 속성이나 전체 엔터티에 대해 유효성 검사 오류가 변경된 경우 발생합니다.
+
+### [Simple Example] INotifyDataErrorInfo를 활용한 Validation 체크 예제
+
+```cs
+
+// ViewModelBase.cs
+public class ViewModelBase : INotifyPropertyChanged
+{
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+}
+
+//ValidationViewModelBase.cs
+public class ValidationViewModelBase : ViewModelBase, INotifyDataErrorInfo
+{
+    private readonly Dictionary<string, List<string>> _errorsByPropertyName = new Dictionary<string, List<string>>();
+    
+    public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+    
+    public bool HasErrors => _errorsByPropertyName?.Any() ?? false;
+    
+    public IEnumerable GetErrors(string propertyName)
+    {
+        return propertyName !=null && _errorsByPropertyName.ContainsKey(propertyName)
+            ? _errorsByPropertyName[propertyName]
+            : Enumerable.Empty<string>();
+    }
+    
+    protected virtual void OnErrorsChanged(DataErrorsChangedEventArgs e)
+    {
+        ErrorsChanged?.Invoke(this, e);
+    }
+    
+    protected void AddError(string error, [CallerMemberName] string propertyName = null)
+    {
+        if (propertyName is null) return;
+
+        if (!_errorsByPropertyName.ContainsKey(propertyName))
+        {
+            _errorsByPropertyName[propertyName] = new List<string>();
+        }
+        if (!_errorsByPropertyName[propertyName].Contains(error))
+        {
+            _errorsByPropertyName[propertyName].Add(error);
+            OnErrorsChanged(new DataErrorsChangedEventArgs(propertyName));
+            RaisePropertyChanged(nameof(HasErrors));
+        }
+    }
+
+    protected void ClearErrors([CallerMemberName] string propertyName = null)
+    {
+        if (propertyName is null) return;
+
+        if (_errorsByPropertyName.ContainsKey(propertyName))
+        {
+            _errorsByPropertyName.Remove(propertyName);
+            OnErrorsChanged(new DataErrorsChangedEventArgs(propertyName));
+            RaisePropertyChanged(nameof(HasErrors));
+        }
+    }
+}
+
+
+//MainViewModel.cs
+public class MainViewModel : ValidationViewModelBase
+{
+    private string _firstName;
+    private string _lastName;
+
+    public MainViewModel()
+    {
+        _firstName = "Gil Dong";
+        _lastName = "Hong";
+    }
+    
+    public string FirstName
+    {
+        get => _firstName;
+        set
+        {
+            if (value == _firstName) return;
+            _firstName = value;
+            RaisePropertyChanged();
+
+            if (string.IsNullOrEmpty(_firstName))
+            {
+                AddError("FirstName is Required");
+            }
+            else
+            {
+                ClearErrors();
+            }
+        }
+    }
+
+    public string LastName
+    {
+        get => _lastName;
+        set
+        {
+            if (value == _lastName) return;
+            _lastName = value;
+            RaisePropertyChanged();
+            
+            if (string.IsNullOrEmpty(_lastName))
+            {
+                AddError("FirstName is Required");
+            }
+            else
+            {
+                ClearErrors();
+            }
+        }
+    }
+}
+```
+
+> MainViewModel을 제외한 ViewModel들은 상속받아야 하는 BaseViewMode들이다.
+
+```xml
+<Window x:Class="WPF_Validate_Ex.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Validate_Ex"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto "></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBlock Margin="0 0 10 0">First Name : </TextBlock>
+            <TextBox Width="200" Text="{Binding FirstName}"></TextBox>
+        </StackPanel>
+        <StackPanel Margin="0 5 0 0" Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Margin="0 0 10 0">Last Name : </TextBlock>
+            <TextBox  Width="200"  Text="{Binding LastName}"></TextBox>
+        </StackPanel>
+    </Grid>
+</Window>
+
+
+<!--> App.Xaml <-->
+<!--> Error Template 및 Trigger <-->
+<Application x:Class="WPF_Validate_Ex.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WPF_Validate_Ex"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder x:Name="placeholder" />
+                            <TextBlock Foreground="Red"
+                                       Text="{Binding ElementName=placeholder,
+                              Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                                       Margin="3 0 0 0" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="Background" Value="Red" />
+                    <Setter Property="Margin" Value="0 0 0 20" />
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={RelativeSource Self},
+                        Path=(Validation.Errors)[0].ErrorContent}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Application.Resources>
+</Application>
+```
+
+> Style 리소스를 App.Xaml에 등록 했지만 , Resource 활용 방식은 여러가지가 있으니 
+> 원하는 방식으로 등록해서 사용하면 된다.
