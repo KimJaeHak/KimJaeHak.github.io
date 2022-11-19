@@ -1451,5 +1451,5 @@ public class MainViewModel : ValidationViewModelBase
 </Application>
 ```
 
-> Style 리소스를 App.Xaml에 등록 했지만 , Resource 활용 방식은 여러가지가 있으니 
+> Style 리소스를 App.Xaml에 등록 했지만 , Resource 활용 방식은 여러가지가 있으니  
 > 원하는 방식으로 등록해서 사용하면 된다.
