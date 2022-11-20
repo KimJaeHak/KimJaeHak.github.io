@@ -1453,3 +1453,45 @@ public class MainViewModel : ValidationViewModelBase
 
 > Style 리소스를 App.Xaml에 등록 했지만 , Resource 활용 방식은 여러가지가 있으니  
 > 원하는 방식으로 등록해서 사용하면 된다.
+
+### [Simple Exampel] ToolTip Style을 지정해서 적용하는 방법
+
+```xml
+<Style TargetType="ToolTip" x:Key="CustomToolTipStyle">
+    <Setter Property="Background" Value="Chartreuse"></Setter>
+</Style>
+<ToolTip x:Key="CustomErrorToolTip"  DataContext="{Binding Path=PlacementTarget, RelativeSource={RelativeSource Self}}">
+    <ToolTip.Content>
+        <Binding Path="(Validation.Errors)[0].ErrorContent"/>
+    </ToolTip.Content>
+    <ToolTip.Style>
+        <Binding Source="{StaticResource CustomToolTipStyle}"></Binding>
+    </ToolTip.Style>
+</ToolTip>
+<Style TargetType="TextBox">
+    <Setter Property="Validation.ErrorTemplate">
+        <Setter.Value>
+            <ControlTemplate>
+                <StackPanel>
+                    <AdornedElementPlaceholder x:Name="placeholder" />
+                    <TextBlock Foreground="Red"
+                                Text="{Binding ElementName=placeholder,
+                        Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                                Margin="3 0 0 0" />
+                </StackPanel>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+    <Style.Triggers>
+        <Trigger Property="Validation.HasError" Value="True">
+            <Setter Property="Background" Value="Red"/>
+            <Setter Property="Margin" Value="0 0 0 20" />
+            <Setter Property="Margin" Value="0 0 0 20"/>
+            <Setter Property="ToolTip"
+                    Value="{StaticResource CustomErrorToolTip}">
+            </Setter>
+        </Trigger>
+    </Style.Triggers>
+</Style>
+
+```
