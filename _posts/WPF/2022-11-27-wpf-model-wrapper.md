@@ -1,14 +1,13 @@
 ---
-title: "WPF Model wrapper"
+title: "WPF Model Wrapper"
 categories:
  - WPF
- - MVVM
- - WPF Model wrapper
 tags:
  - WPF
  - C#
  - XAML
  - MVVM
+ - WPF Model wrapper
 toc: true
 ---
 
@@ -51,8 +50,7 @@ public class ModelWrapper<T> : Observable
         return (TValue)propertyInfo.GetValue(Model);
     }
 
-    protected void SetValue<TValue>(TValue value,
-        [CallerMemberName] string propertyName = null)
+    protected void SetValue<TValue>(TValue value, [CallerMemberName] string propertyName = null)
     {
         var propertyInfo = Model.GetType().GetProperty(propertyName);
         var currentValue = propertyInfo.GetValue(Model);
