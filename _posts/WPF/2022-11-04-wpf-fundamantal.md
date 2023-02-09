@@ -1495,3 +1495,94 @@ public class MainViewModel : ValidationViewModelBase
 </Style>
 
 ```
+
+# 기타 유용한 Example
+## Generic DelegateCommad<T> 구현
+
+```cs
+using System;
+using System.Globalization;
+using System.Windows.Input;
+
+namespace Mirero.SADR.Asset.Dynamic.UI.Common
+{
+    internal interface ICommand<T> : ICommand
+    {
+        bool CanExecute(T param);
+        void Execute(T param);
+    }
+
+
+    public class DelegateCommandADR<T> : ICommand<T>
+    {
+        private readonly Func<T, bool> _canExecute;
+        private readonly Action<T> _execute;
+
+        public DelegateCommandADR(Action<T> execute, Func<T, bool> canExecute = null)
+        {
+            if (execute == null)
+                throw new ArgumentException();
+
+            _execute = execute;
+            _canExecute = canExecute;
+        }
+
+        bool ICommand.CanExecute(object parameter)
+        {
+            return this.CanExecute(DelegateCommandADR<T>.GetGenericParameter(parameter, true));
+        }
+
+        void ICommand.Execute(object parameter)
+        {
+            this.Execute(DelegateCommandADR<T>.GetGenericParameter(parameter));
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public void Execute(T parameter)
+        {
+            _execute(parameter);
+        }
+
+        public bool CanExecute(T parameter)
+        {
+            return _canExecute is null || _canExecute(parameter);
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        private static T GetGenericParameter(object parameter, bool suppressCastException = false)
+        {
+            parameter = TypeCastHelper.TryCast(parameter, typeof(T));
+            if (parameter == null || parameter is T)
+                return (T)parameter;
+            if (suppressCastException)
+                return default(T);
+            throw new InvalidCastException(string.Format(
+                "CommandParameter: Unable to cast object of type '{0}' to type '{1}'",
+                (object)parameter.GetType().FullName, (object)typeof(T).FullName));
+        }
+
+        public static class TypeCastHelper
+        {
+            public static object TryCast(object value, Type targetType)
+            {
+                Type type1 = Nullable.GetUnderlyingType(targetType);
+                if ((object)type1 == null)
+                    type1 = targetType;
+                Type type2 = type1;
+                if (type2.IsEnum && value is string)
+                    value = Enum.Parse(type2, (string)value, false);
+                else if (value is IConvertible && !targetType.IsAssignableFrom(value.GetType()))
+                    value = Convert.ChangeType(value, type2, (IFormatProvider)CultureInfo.InvariantCulture);
+                if (value == null && targetType.IsValueType)
+                    value = Activator.CreateInstance(targetType);
+                return value;
+            }
+        }
+    }
+}
+```
