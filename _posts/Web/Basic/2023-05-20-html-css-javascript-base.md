@@ -1,7 +1,7 @@
 ---
 title: "HTML & CSS & Javascript 기초"
 categories:
- - html
+ - Html
 tags:
  - Html 
  - Html tag
@@ -24,12 +24,9 @@ toc_sticky: true
 - 
 
 # CSS
-# JavaScript
-# Resource(관련 자료 Link)
-# Resources
+# JavaScript  
 
-The following resources can help you better understand the concepts, elements, and APIs presented in this course.
-
+# Resources [관련 자료 Link]
 ## HTML
 
 - [Overview](https://developer.mozilla.org/docs/Web/HTML)
