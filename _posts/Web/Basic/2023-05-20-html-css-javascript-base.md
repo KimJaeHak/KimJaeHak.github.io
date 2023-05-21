@@ -12,7 +12,7 @@ toc_sticky: true
 ---
 
 # HTML
-## Getting Started
+## - Getting Started
 ### 개발 환경 셋팅
 - [codePen.io](https://codepen.io/pen)는 Html & CSS & JavaScript의 Web Editor 주소 이다.
 - 최고의 무료 개발 Tool 
@@ -24,6 +24,54 @@ toc_sticky: true
 
 
 # CSS
+## - Selector(선택기)
+1. 요소 선택기 (Element Selector)
+```css
+p {
+    color: blue;
+}
+```
+
+1. 클래스 선택기 (Class Selector)
+```css
+.myClass {
+    color: red;
+}
+```
+
+1. ID 선택기 (ID Selector)
+```css
+#myID {
+    color: green;
+}
+```
+
+5. 속성 선택기 (Attribute Selector)
+```css
+a[target="_blank"] {
+    color: purple;
+}
+```
+
+6. 자식 선택기 (Child Selector)
+```css
+div > p {
+    color: orange;
+}
+```
+
+7. 후손 선택기 (Descendant Selector)
+```css
+div p {
+    color: yellow;
+}
+```
+
+8. 인접 형제 선택기 (Adjacent Sibling Selector)
+```css
+h1 +
+```
+
 # JavaScript  
 
 # Resources [관련 자료 Link]
