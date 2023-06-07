@@ -11,6 +11,29 @@ toc: true
 toc_sticky: true
 ---
 
+- [HTML](#html)
+  - [- Getting Started](#--getting-started)
+    - [- 개발 환경 셋팅](#--개발-환경-셋팅)
+    - [- Html Fundmental](#--html-fundmental)
+      - [- Head Element](#--head-element)
+      - [- Reference Text](#--reference-text)
+      - [- Styling Text](#--styling-text)
+      - [- Types of Lists](#--types-of-lists)
+      - [- Link](#--link)
+      - [- Tables and Data](#--tables-and-data)
+      - [- List](#--list)
+      - [- Special Characters](#--special-characters)
+      - [- Image](#--image)
+- [CSS](#css)
+  - [- Selector(선택기)](#--selector선택기)
+- [JavaScript](#javascript)
+- [Resources \[관련 자료 Link\]](#resources-관련-자료-link)
+  - [- HTML](#--html)
+  - [- CSS](#--css)
+  - [- JavaScript](#--javascript)
+  - [- Tools](#--tools)
+
+
 <br>
 # HTML
 <hr/>
@@ -41,7 +64,7 @@ toc_sticky: true
   </html>
 ```
 
- > #### - Head Element
+#### - Head Element
 
 <p align="left">
 <img src="/assets/images/auto/2023-05-29-03-09-05.png" onclick="window.open(this.src)" width="60%">
@@ -53,7 +76,7 @@ toc_sticky: true
 <img src="/assets/images/auto/2023-05-29-03-31-39.png" onclick="window.open(this.src)" width="60%">
 </p>
 
-> #### - Reference Text
+#### - Reference Text
 
 <p align="left">
 <img src="/assets/images/auto/2023-05-29-03-55-53.png" onclick="window.open(this.src)" width="60%">
@@ -110,7 +133,7 @@ toc_sticky: true
 <img src="/assets/images/auto/2023-05-30-05-36-38.png" onclick="window.open(this.src)" width="80%">
 </p>
 
-> #### - Styling Text
+#### - Styling Text
 
 ```html
 <style>
@@ -127,7 +150,7 @@ to help keep you safe.
 <img src="/assets/images/auto/2023-05-30-05-38-54.png" onclick="window.open(this.src)" width="80%">
 </p>
 
-> #### - Types of Lists
+#### - Types of Lists
 
 - UnOrder List
 
@@ -178,7 +201,7 @@ to help keep you safe.
 </body>
 ```
 
-> #### - Linking Document
+#### - Link
 
 ```html
 //외부 URL에 대한 link , target : 새창으로 열기
@@ -197,10 +220,16 @@ to help keep you safe.
 
 // Reference anchor in another document
 <a href="locations.html#loc2"></a>
+
+//Mail
+<p>Contact us via <a href="mailto:info@bethanyspieshop.com">email</a></p>
+
+//Down Load
+<p>Download our full <a href="downloads/Price list.zip">price list</a></p>
 ```
 
-> #### - Tables and Data
-
+#### - Tables and Data
+  
 ```html
         <table >
             <caption>Wired Brain Nutrition Information</caption>
@@ -257,16 +286,142 @@ to help keep you safe.
         </table>
 ```
 
+>Simple Table Style
+
+```html
+        table,
+        td,
+        th {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+```
+
 <p align="left">
-<img src="/assets/images/auto/2023-05-30-07-01-41.png" onclick="window.open(this.src)" width="80%">
+<img src="/assets/images/auto/2023-05-30-07-01-41.png" onclick="window.open(this.src)" width="70%">
 </p>
+
+#### - List
+
+- ol: ordered list
+- ul: unordered list
+- li: list item
+
+> Example
+
+```html
+<!-- 순서가 있는 -->
+<ol>
+    <li>
+      첫 번째
+    </li>
+    <li>
+      두 번째
+    </li>
+    <li>
+      세 번째
+    </li>
+</ol>
+
+<!-- 순서가 없는 -->
+<ul>
+    <li>Butter</li>
+    <li>Eggs</li>
+    <li>Sugar</li>
+    <!-- 하위 목록 -->
+    <ul>
+        <li>Regular sugar</li>
+        <li>Brown sugar</li>
+        <li>Caster sugar</li>
+    </ul>
+    <li>Flour</li>
+    <li>Cinnamon</li>
+    <li>Ginger</li>
+    <li>Nutmeg</li>
+    <li>Apples</li>
+    <li>Lemons</li>
+</ul>
+```
+
+#### - Special Characters
+
+> 주요 특수문자
+- 아래 이외에도 많은 특수 문자가 있고 찾아 보면 된다.
+
+```
+&lt; : < (less than)
+&gt; : > (greater than)
+&amp; : & (ampersand)
+&quot; : " (double quote)
+&apos; : ' (single quote)
+
+[수학/논리 기호]:
+&plus; : + (plus sign)
+&minus; : − (minus sign)
+&times; : × (multiplication sign)
+&div; : ÷ (division sign)
+&ne; : ≠ (not equal to)
+&le; : ≤ (less-than or equal to)
+&ge; : ≥ (greater-than or equal to)
+
+[화폐 기호]:
+&cent; : ¢ (cent sign)
+&pound; : £ (pound sign)
+&yen; : ¥ (yen sign)
+&euro; : € (euro sign)
+
+[기타 기호]:
+&copy; : © (copyright sign)
+&reg; : ® (registered sign)
+&trade; : ™ (trade mark sign)
+&sect; : § (section sign)
+&para; : ¶ (pilcrow sign)
+&deg; : ° (degree sign)
+
+[발음 기호]:
+&uml; : ¨ (diaeresis)
+&acute; : ´ (acute accent)
+&grave; : ` (grave accent)
+&circ; : ˆ (circumflex accent)
+&tilde; : ˜ (small tilde)
+
+```
+
+#### - Image
+
+```html
+<img
+  src=“wired-brain-coffee-logo.png”
+  alt=“wiredbraincoffee.com”
+  srcset="logo.png 500w, logo-250.png 250w"
+  sizes="(max-width: 30em) 25vw, 33vw"/>
+```
+
+`<img>`:  
+이 태그는 웹 페이지에 이미지를 삽입하는데 사용됩니다.
+
+`style="float:left"`:  
+이 부분은 CSS 스타일을 적용하는데 사용되며, 이미지를 화면의 왼쪽에 정렬하도록 설정합니다.
+
+`src="content/wired-brain-coffee-logo.png"`:  
+src 속성은 브라우저가 이미지를 어디에서 찾아야 하는지를 알려주는 속성입니다. 여기서는 "content"라는 폴더 내의 "wired-brain-coffee-logo.png" 이미지 파일을 참조하고 있습니다.
+
+`alt="Wired Brain Coffee Logo"`:  
+alt 속성은 이미지가 로드되지 않을 때 또는 사용자가 스크린 리더를 사용하는 경우에 표시되는 대체 텍스트입니다.
+
+`srcset`:  
+이 속성은 브라우저가 디스플레이의 해상도에 따라 로드해야 할 이미지 버전을 선택할 수 있게 합니다. 여기서는 500w와 250w의 두 가지 버전의 이미지가 제공되고 있습니다.
+
+`sizes`:  
+이 속성은 각 미디어 조건(화면 크기 등)에 대한 최적의 이미지 크기를 지정합니다. 여기서는 화면 크기가 500px 이하일 때 이미지가 뷰포트의 25%를 차지하도록, 그렇지 않을 경우 뷰포트의 50%를 차지하도록 설정되어 있습니다.
 
 <br>
 # CSS
 <hr/>
 ## - Selector(선택기)
 1. 요소 선택기 (Element Selector)
-```css
+```**css**
   p {
       color: blue;
   }
