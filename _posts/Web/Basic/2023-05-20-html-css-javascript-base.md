@@ -11,29 +11,6 @@ toc: true
 toc_sticky: true
 ---
 
-- [HTML](#html)
-  - [- Getting Started](#--getting-started)
-    - [- 개발 환경 셋팅](#--개발-환경-셋팅)
-    - [- Html Fundmental](#--html-fundmental)
-      - [- Head Element](#--head-element)
-      - [- Reference Text](#--reference-text)
-      - [- Styling Text](#--styling-text)
-      - [- Types of Lists](#--types-of-lists)
-      - [- Link](#--link)
-      - [- Tables and Data](#--tables-and-data)
-      - [- List](#--list)
-      - [- Special Characters](#--special-characters)
-      - [- Image](#--image)
-- [CSS](#css)
-  - [- Selector(선택기)](#--selector선택기)
-- [JavaScript](#javascript)
-- [Resources \[관련 자료 Link\]](#resources-관련-자료-link)
-  - [- HTML](#--html)
-  - [- CSS](#--css)
-  - [- JavaScript](#--javascript)
-  - [- Tools](#--tools)
-
-
 <br>
 # HTML
 <hr/>
