@@ -4,7 +4,7 @@ categories:
  - Markdown
 tags:
  - Markdown
- - Markdown sytax
+ - Markdown syntax
 ---
 
 ## 헷갈리는 문법 정리

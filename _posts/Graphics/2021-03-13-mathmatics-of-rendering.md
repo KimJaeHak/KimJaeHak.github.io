@@ -1,11 +1,11 @@
 ---
-title: "Mathmatics of Rerndering"
+title: "Mathematics of Rendering"
 categories:
  - Math
 tags:
  - math
  - game engine
- - mathmatics
+ - mathematics
  - rendering
 use_math : true
 toc: true

@@ -4,8 +4,7 @@ categories:
  - Java
 tags:
  - Java
- - Java Syntax
- 
+ - Java Syntax 
 toc: true
 toc_sticky: true
 ---
