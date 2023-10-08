@@ -1,10 +1,11 @@
 ---
-title: "Java Master"
+title: "Java Master Class"
 categories:
  - Java
 tags:
  - Java
  - Java Syntax
+ 
 toc: true
 toc_sticky: true
 ---
