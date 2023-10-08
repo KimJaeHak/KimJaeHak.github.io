@@ -1,10 +1,9 @@
 ---
 title: "Java 기초"
 categories:
- - Web
+ - Java
 tags:
- - Web
- - Maven
+ - Java
  
 toc: true
 toc_sticky: true
