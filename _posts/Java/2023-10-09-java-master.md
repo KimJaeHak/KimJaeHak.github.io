@@ -1,10 +1,11 @@
 ---
 title: "Java Master Class"
 categories:
- - Java
+ - Web
 tags:
- - Java
- - Java Syntax 
+ - Web
+ - Maven
+ 
 toc: true
 toc_sticky: true
 ---
