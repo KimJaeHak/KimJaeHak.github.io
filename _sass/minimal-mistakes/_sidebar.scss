@@ -231,6 +231,13 @@
   }
 }
 
+.custom-size {
+  width: auto;
+  height: auto;
+  max-width: 99px;  /* 너비 설정 */
+  max-height: 20px;  /* 높이 설정 */
+}
+
 .author__urls {
   display: none;
   position: absolute;

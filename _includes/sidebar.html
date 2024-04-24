@@ -42,13 +42,13 @@
         {% assign min = tag[1].size %}
         {% endif %}
         {% endfor %}
-  
+
         {% if max == min %}
         {% assign diff = 1 %}
         {% else %}
         {% assign diff = max | minus: min %}
         {% endif %}
-  
+
         {% for tag in site.tags %}
         {% assign temp = tag[1].size | minus: min | times: 36 | divided_by: diff %}
         {% assign base = temp | divided_by: 4 %}
@@ -69,10 +69,13 @@
         {% endfor %}
       </div>
     </div>
-  </div>
-  
 
+    <!-- 방문자 수 -->
+    <a href="https://hits.seeyoufarm.com">
+      <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fkimjaehak.github.io&count_bg=%2357B9D9&title_bg=%23BE7DE1&icon=beatport.svg&icon_color=%23579FEF&title=방문자&edge_flat=false" class="custom-size"/>
+    </a>
+
+    </div>
   </div>
 
-  
 {% endif %}
